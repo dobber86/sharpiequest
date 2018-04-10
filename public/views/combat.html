@@ -1,0 +1,44 @@
+<div class="row healthbars">
+  <div class="col-sm-6">
+    <p>{{playerName}}</p>
+    <div class="progress">
+        <div class="progress-bar bg-danger" ng-style="playerBar"><p>{{playerCurrentHP}}</p></div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <p>{{enemyName}}</p>
+    <div class="progress">
+        <div class="progress-bar bg-danger" ng-style="enemyBar"><p>{{enemyCurrentHP}}</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+      <p>Turn: {{turnCount}}</p>
+      <button ng-click="playerAttack()">Attack</button>
+      <button ng-click="playerDefend()">Defend</button>
+  </div>
+  <div class="col-sm-3 spritecontainer">
+    <img class="img-fluid" src="{{playerImage}}">
+  </div>
+  <div class="col-sm-3 spritecontainer">
+    <img class="img-fluid" src={{enemyImage}}>
+  </div>
+</div>
+
+<!-- style="background: url('img/backgrounds/1.png') -->
+<!-- <img class="img-fluid" src="img/backgrounds/1.png" style="position: relative; left: 0; top: 0;"> -->
+
+<div class="row combatlog">
+  <div class="col-sm-2">
+    <img class="img-fluid centeredimg" src="img/char/warrior/faceset.png">
+  </div>
+  <div class="col-sm-10">
+    <p>{{combatLog}}</p>
+    <p>"{{characterQuote}}"</p>
+  </div>
+</div>
+
+
+

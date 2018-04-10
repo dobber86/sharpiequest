@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-sm-12">
+
+    <!-- SIGN IN -->
+    <div ng-controller="signinController">
+
+      <!-- Button trigger Sign In modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Sign In</button>
+          
+      <!-- Modal Sign In -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <div class="modal-body">
+
+                <form>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Username</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Username" ng-model="signin.username">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="signin.password">
+                    <small class="form-text text-muted">We'll never share your username and/or password with anyone else.</small>
+                  </div>
+                </form>
+                <p>{{ signinResponse }}</p>
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" ng-click="doSignin()">Submit</button>
+              </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <br> <!-- WOW! -->
+
+    <!-- LOG IN -->
+    <div ng-controller="loginController">
+      <form>
+          <input type="text" ng-model="login.username" placeholder="Username">
+          <input type="password" ng-model="login.password" placeholder="Password">
+          <button  ng-click="doLogin()">Log In</button>
+      </form>
+      <p>{{ loginPlayer.username }} {{ loginWrong }}</p>
+    </div>
+
+
+    <!-- <a href="#!combat">Combat</a> -->
+  </div>
+</div>

@@ -1,1 +1,61 @@
-hoi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>SharpieQuest</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Include Bootstrap 4 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!-- Include the core AngularJS library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+  <!-- Include the AngularJS routing library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+  <!-- Stylesheet -->
+  <link href="css/style.css" rel="stylesheet" type="text/css">
+
+  <!-- <base href="/"> -->
+</head>
+
+<body ng-app="sharpieQuest">
+  <div class="container">
+
+    <div class="row header">
+      <div class="col-sm-12">
+        <h1>SharpieQuest</h1>
+      </div>
+    </div>
+    
+    <!-- Insert Content -->
+    <div ng-view></div>
+
+    <div class="row footer">
+        <div class="col-sm-12">
+          <p>Game created by Dobber and Galfaren</p>
+        </div>
+    </div>
+
+  </div>
+
+<!-- Modules -->
+<script src="js/app.js"></script>
+
+<!-- Controllers -->
+<script src="js/controllers/homeController.js"></script>
+<script src="js/controllers/combatController.js"></script>
+<script src="js/controllers/signinController.js"></script>
+<script src="js/controllers/loginController.js"></script>
+
+<!-- Services -->
+<script src="js/services/monsterList.js"></script>
+<script src="js/services/monsterResponse.js"></script>
+<script src="js/services/playerStats.js"></script>
+
+</body>
+</html>
