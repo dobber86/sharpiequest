@@ -1,5 +1,14 @@
-app.controller('combatController', function($scope, $timeout, monsterList, combatMath, playerQuotes) {  
+app.controller('combatController', function($scope, $location, $timeout, monsterList, combatMath, playerStats) {  
+  var playername = playerStats.getUsername()
+  
+  if (playername == "") {
+    $location.path('/');
+  }
+
   // Player statistics and conditions (might be moved to object later)
+  $scope.playerName = playername;
+  $scope.playerXp = playerStats.getXp();
+
   $scope.playerAlive = true;
   $scope.playerMaxHP = 15;
   $scope.playerCurrentHP = 15;

@@ -28,12 +28,23 @@ app.post('/signin', function (req, res) {
     connection.connect();
     
     var newSignIn = {
-      id: 0, 
-      username: req.body.username, 
-      password: req.body.password
+        id: 0, 
+        username: req.body.username, 
+        password: req.body.password,
+        hp: req.body.hp,
+        mp: req.body.mp,
+        power: req.body.power,
+        resistance: req.body.resistance,
+        accuracy: req.body.accuracy,
+        insight: req.body.insight,
+        specialpower: req.body.specialpower,
+        xp: req.body.xp,
+        level: req.body.level
     };
+
+    var sql = 'INSERT INTO players SET ?';
   
-    var query = connection.query('INSERT INTO players SET ?', newSignIn, function (err, result) {
+    var query = connection.query(sql, newSignIn, function (err, result) {
       if(err) {
           console.log("foutje in sigin in" + err);
       }
@@ -52,7 +63,7 @@ app.post('/checkUsername', function(req, res) {
     var username = req.body.username;
     var sql = 'SELECT * FROM players WHERE username = ?';
 
-    connection.query(sql, [username], function (err, result) {
+    connection.query(sql, username, function (err, result) {
         
         if(err) {
             console.log("Something went wrong in checking username: " + err);
