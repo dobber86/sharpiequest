@@ -2,18 +2,24 @@ app.service('monsterList', function() {
     var enemy1Name = "Slime";
     var enemy1MaxHP = 10;
     var enemy1Power = 2;
+    var enemy1SpecialPower = 2;
+    var enemy1Accuracy = 85;
     var enemy1Resistance = 1;
     var enemy1Image = "img/monster/slime/idle.gif"
 
     var enemy2Name = "Dino";
     var enemy2MaxHP = 15;
     var enemy2Power = 3;
+    var enemy2SpecialPower = 3;
+    var enemy2Accuracy = 85;
     var enemy2Resistance = 1;
     var enemy2Image = "img/monster/dino/idle.gif"
 
     var enemy3Name = "Reptile";
     var enemy3MaxHP = 20;
     var enemy3Power = 4;
+    var enemy3SpecialPower = 4;
+    var enemy3Accuracy = 85;
     var enemy3Resistance = 1;
     var enemy3Image = "img/monster/reptile/idle.gif"
 
@@ -50,6 +56,30 @@ app.service('monsterList', function() {
         }
         if (x === 3) {
             return enemy3Power;
+        }
+    }
+
+    this.getEnemySpecialPower=function(x){
+        if (x === 1) {
+            return enemy1SpecialPower;
+        }
+        if (x === 2) {
+            return enemy2SpecialPower;
+        }
+        if (x === 3) {
+            return enemy3SpecialPower;
+        }
+    }
+
+    this.getEnemyAccuracy=function(x){
+        if (x === 1) {
+            return enemy1Accuracy;
+        }
+        if (x === 2) {
+            return enemy2Accuracy;
+        }
+        if (x === 3) {
+            return enemy3Accuracy;
         }
     }
 
