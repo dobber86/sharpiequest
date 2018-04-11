@@ -1,12 +1,14 @@
 <div class="row healthbars">
   <div class="col-sm-6">
+    <p>Turn: {{turnCount}}</p>
+  </div>
+  <div class="col-sm-3">
     <p>Player: {{playerName}}</p>
-    <p>XP: {{playerXp}}</p>
     <div class="progress">
         <div class="progress-bar bg-danger" ng-style="playerBar"><p>{{playerCurrentHP}}</p></div>
     </div>
   </div>
-  <div class="col-sm-6">
+  <div class="col-sm-3">
     <p>{{enemyName}}</p>
     <div class="progress">
         <div class="progress-bar bg-danger" ng-style="enemyBar"><p>{{enemyCurrentHP}}</p></div>
@@ -16,9 +18,9 @@
 
 <div class="row">
   <div class="col-sm-6">
-      <p>Turn: {{turnCount}}</p>
       <button ng-click="playerAttack()">Attack</button>
       <button ng-click="playerDefend()">Defend</button>
+      <button ng-click="playerSpecial()">Power</button>
   </div>
   <div class="col-sm-3 spritecontainer">
     <img class="img-fluid" src="{{playerImage}}">
