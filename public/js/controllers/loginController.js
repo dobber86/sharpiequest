@@ -17,7 +17,7 @@ app.controller('loginController',  function($scope, $location, $http, playerStat
                 console.log("Fetching: " + response.data[0]);
                 $scope.loginWrong = "";
                 $scope.loginPlayer = response.data[0];
-                playerStats.saveUsername($scope.loginPlayer.username);
+                playerStats.saveUsername($scope.loginPlayer.username, $scope.loginPlayer.xp);
                 $location.path('/combat/');
                 
             })

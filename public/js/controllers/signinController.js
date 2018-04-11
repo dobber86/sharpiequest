@@ -2,7 +2,16 @@ app.controller('signinController',  function($scope, $http) {
     
     $scope.signin = {
         username: "",
-        password: ""
+        password: "",
+        hp: 10,
+        mp: 5,
+        power: 1,
+        resistance: 1,
+        accuracy: 8,
+        insight: 1,
+        specialpower: 1,
+        xp: 1,
+        level: 1
     },
 
     $scope.doSignin = function () {
