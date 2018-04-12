@@ -1,5 +1,5 @@
 app.controller('combatController', function($scope, $location, $timeout, monsterList, combatMath, playerStats, playerQuotes) {  
-  $scope.playerName = playerStats.getUsername()
+  $scope.playerName = playerStats.getUsername();
   
   if ($scope.playerName == "") {
     $location.path('/');
@@ -16,7 +16,8 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   $scope.playerPower = playerStats.getPower();
   $scope.playerSpecialPower = playerStats.getSpecialPower();
   $scope.playerAccuracy = playerStats.getAccuracy();
-  $scope.playerResistance = playerStats.getResistance()
+  $scope.playerResistance = playerStats.getResistance();
+  $scope.playerLevel = playerStats.getLevel();
   $scope.playerImage = "img/char/warrior/idle.gif";
 
   // Player healthbar size
@@ -242,12 +243,14 @@ app.controller('combatController', function($scope, $location, $timeout, monster
       if ($scope.enemyAlive === false) {
         $scope.buttonLock = true;
         $scope.combatLog = "The "+$scope.enemyName+" is dead!";
-        $scope.characterQuote = "Victory!"
+        $scope.characterQuote = "Victory!";
+        $scope.playerVictory();
       }
       if ($scope.playerAlive === false) {
         $scope.buttonLock = true; 
         $scope.combatLog = "You are dead, oh dear!";
-        $scope.characterQuote = "Urgh..."
+        $scope.characterQuote = "Urgh...";
+        $scope.playerDead();
       }
     }, 2000);
 
@@ -260,4 +263,24 @@ app.controller('combatController', function($scope, $location, $timeout, monster
 
     $scope.turnCount++;
   }
+
+  $scope.playerVictory = function() {
+    $scope.playerLevel += 1;
+    playerStats.saveCombatUpdate(
+      $scope.playerCurrentHP,
+      $scope.playerCurrentMP,
+      $scope.playerXp,
+      $scope.playerLevel
+    );
+  }
+
+  $scope.playerDead = function() {
+    playerStats.saveCombatUpdate(
+      $scope.playerCurrentHP,
+      $scope.playerCurrentMP,
+      $scope.playerXp,
+      $scope.playerLevel
+    );
+  }
+
 });

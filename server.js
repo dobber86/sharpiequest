@@ -111,7 +111,40 @@ app.post('/fetch', function(req, res) {
     connection.end();
 });
 
+// UPDATE PLAYERSTATS
+app.post('/update', function (req, res) {
+    console.log("in update");
+    var connection = getConnection();
+    connection.connect();
+    
+    var username = req.body.username;
+
+    var newUpdate = {
+        hp: req.body.hp,
+        maxhp: req.body.maxhp,
+        mp: req.body.mp,
+        maxmp: req.body.maxmp,
+        power: req.body.power,
+        resistance: req.body.resistance,
+        accuracy: req.body.accuracy,
+        insight: req.body.insight,
+        specialpower: req.body.specialpower,
+        xp: req.body.xp,
+        level: req.body.level
+    };
+
+    var sql = 'UPDATE players SET ? WHERE username = ' + username;
+  
+    var query = connection.query(sql, newUpdate, function (err, result) {
+      if(err) {
+          console.log("foutje in update: " + err);
+      }
+        console.log("updated " +  newUpdate);
+      res.status(200).end();
+    });
+    connection.end();
+});
 
 app.get('/', function(req, res) {
     res.send('Hoi, je route provider werkt niet.');
-    });
+});
