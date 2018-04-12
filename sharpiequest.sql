@@ -16,6 +16,3 @@ create table players (
   xp int(3),
   level int(3)
 );
-
-alter table players add column maxhp int(3) after hp;
-alter table players add column maxmp int(3) after mp;
