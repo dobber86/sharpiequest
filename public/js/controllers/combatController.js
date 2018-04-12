@@ -1,4 +1,4 @@
-app.controller('combatController', function($scope, $location, $timeout, monsterList, combatMath, playerStats) {  
+app.controller('combatController', function($scope, $location, $timeout, monsterList, combatMath, playerStats, playerQuotes) {  
   var playername = playerStats.getUsername()
   
   if (playername == "") {
@@ -52,17 +52,8 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   $scope.combatLog = "It's a "+$scope.enemyName+"!";
   $scope.buttonLock = false;
 
-  // Character quotes
-  if ($scope.enemyResponse === 1) {
-    $scope.characterQuote = "It looks agressive."
-  }
-  if ($scope.enemyResponse === 2) {
-    $scope.characterQuote = "It looks defensive."
-  }
-  if ($scope.enemyResponse === 3) {
-    $scope.characterQuote = "It looks strange."
-  }
-
+  // Character quote
+  $scope.characterQuote = playerQuotes.getQuote($scope.enemyName, $scope.enemyResponse);
 
   // When attack button is pressed:
   $scope.playerAttack = function() {
@@ -258,15 +249,7 @@ app.controller('combatController', function($scope, $location, $timeout, monster
 
     $scope.enemyResponse = combatMath.getResponse(3);
 
-    if ($scope.enemyResponse === 1) {
-      $scope.characterQuote = "It looks agressive."
-    }
-    if ($scope.enemyResponse === 2) {
-      $scope.characterQuote = "It looks defensive"
-    }
-    if ($scope.enemyResponse === 3) {
-      $scope.characterQuote = "It looks strange."
-    }
+    $scope.characterQuote = playerQuotes.getQuote($scope.enemyName, $scope.enemyResponse);
 
     $scope.turnCount++;
   }
