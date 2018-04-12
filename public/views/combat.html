@@ -4,8 +4,11 @@
   </div>
   <div class="col-sm-3">
     <p>{{playerName}}</p>
-    <div class="progress">
+    <div class="progress statbar">
         <div class="progress-bar bg-danger" ng-style="playerBar"><p>{{playerCurrentHP}}</p></div>
+    </div>
+    <div class="progress">
+        <div class="progress-bar" ng-style="playerBar"><p>{{playerCurrentMP}}</p></div>
     </div>
   </div>
   <div class="col-sm-3">
@@ -18,9 +21,9 @@
 
 <div class="row">
   <div class="col-sm-6">
-      <button ng-click="playerAttack()">Attack</button>
-      <button ng-click="playerDefend()">Defend</button>
-      <button ng-click="playerSpecial()">Power</button>
+      <button class={{buttonState}} style="width: 100px" ng-click="playerAttack()">Attack</button><br><br>
+      <button class={{buttonState}} style="width: 100px" ng-click="playerDefend()">Defend</button><br><br>
+      <button class={{buttonState}} style="width: 100px" ng-click="playerSpecial()">Power</button>
   </div>
   <div class="col-sm-3 spritecontainer">
     <img class="img-fluid" src="{{playerImage}}">
