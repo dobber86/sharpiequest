@@ -1,19 +1,19 @@
-app.controller('signinController',  function($scope, $http) {
+app.controller('signinController',  function($scope, $http, playerStats) {
     
     $scope.signin = {
         username: "",
         password: "",
-        hp: 10,
-        maxhp: 10,
-        mp: 5,
-        maxmp: 5,
-        power: 1,
-        resistance: 1,
-        accuracy: 8,
-        insight: 1,
-        specialpower: 1,
-        xp: 1,
-        level: 1
+        hp: playerStats.getHp(),
+        maxhp: playerStats.getMaxHp(),
+        mp: playerStats.getMp(),
+        maxmp: playerStats.getMaxMp(),
+        power: playerStats.getPower(),
+        resistance: playerStats.getResistance(),
+        accuracy: playerStats.getAccuracy(),
+        insight: playerStats.getInsight(),
+        specialpower: playerStats.getSpecialPower(),
+        xp: playerStats.getXp(),
+        level: playerStats.getLevel()
     },
 
     $scope.doSignin = function () {

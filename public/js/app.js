@@ -9,5 +9,13 @@ app.config(function($routeProvider) {
     .when("/combat", {
         templateUrl : "views/combat.html",
         controller: "combatController"
+    })
+    .when("/loot", {
+        templateUrl : "views/loot.html",
+        controller: "lootController"
+    })
+    .when("/dead", {
+        templateUrl : "views/dead.html",
+        controller: "deadController"
     });
 });

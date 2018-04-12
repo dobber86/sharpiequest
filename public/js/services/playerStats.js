@@ -28,6 +28,13 @@ app.service('playerStats', function() {
         level = dblvl
     }
 
+    this.saveCombatUpdate = function(cHp, cMp, cXp, cLvl) {
+        hp = cHp,
+        mp = cMp,
+        xp = cXp,
+        level = cLvl
+    }
+
     this.getUsername = function() {
         return username;
     }
