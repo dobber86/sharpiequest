@@ -20,7 +20,9 @@ app.controller('loginController',  function($scope, $location, $http, playerStat
                 playerStats.saveUsername(
                     $scope.loginPlayer.username,
                     $scope.loginPlayer.hp,
+                    $scope.loginPlayer.maxhp,
                     $scope.loginPlayer.mp,
+                    $scope.loginPlayer.maxmp,
                     $scope.loginPlayer.power,
                     $scope.loginPlayer.resistance,
                     $scope.loginPlayer.accuracy,

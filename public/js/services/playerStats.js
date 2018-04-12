@@ -2,7 +2,9 @@ app.service('playerStats', function() {
     
     var username = "",
         hp = 10,
+        maxhp = 10,
         mp = 5,
+        maxmp = 5,
         power = 1,
         resistance = 1,
         accuracy = 8,
@@ -11,10 +13,12 @@ app.service('playerStats', function() {
         xp = 1,
         level = 1;
 
-    this.saveUsername = function(user, hp, mp, pow, res, acc, ins, spe, xp, lvl) {
+    this.saveUsername = function(user, hp, mhp, mp, mmp, pow, res, acc, ins, spe, xp, lvl) {
         username = user,
         hp = hp,
+        maxhp = mhp,
         mp = mp,
+        maxmp = mmp,
         power = pow,
         resistance = res,
         accuracy = acc,
