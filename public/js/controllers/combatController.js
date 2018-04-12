@@ -1,28 +1,31 @@
 app.controller('combatController', function($scope, $location, $timeout, monsterList, combatMath, playerStats, playerQuotes) {  
-  var playername = playerStats.getUsername()
+  $scope.playerName = playerStats.getUsername()
   
-  if (playername == "") {
+  if ($scope.playerName == "") {
     $location.path('/');
   }
 
   // Player statistics and conditions (might be moved to object later)
-  $scope.playerName = playername;
-  $scope.playerXp = playerStats.getXp();
-
   $scope.playerAlive = true;
-  $scope.playerMaxHP = 15;
-  $scope.playerCurrentHP = 15;
+  $scope.playerXp = playerStats.getXp();
+  $scope.playerMaxHP = playerStats.getMaxHp();
+  $scope.playerCurrentHP = playerStats.getHp();
   $scope.playerPercentHP = combatMath.getPercentHP($scope.playerCurrentHP, $scope.playerMaxHP);
-  $scope.playerPower = 3;
-  $scope.playerSpecialPower = 3;
-  $scope.playerAccuracy = 85;
-  $scope.playerResistance = 3;
+  $scope.playerMaxMP = playerStats.getMaxMp();
+  $scope.playerCurrentMP = playerStats.getMp();
+  $scope.playerPower = playerStats.getPower();
+  $scope.playerSpecialPower = playerStats.getSpecialPower();
+  $scope.playerAccuracy = playerStats.getAccuracy();
+  $scope.playerResistance = playerStats.getResistance()
   $scope.playerImage = "img/char/warrior/idle.gif";
 
   // Player healthbar size
   $scope.playerBar = {
     "width" : $scope.playerPercentHP+"%"
   }
+
+  // Button state
+  $scope.buttonState = "btn active";
 
   // Enemy selector (update when adding a new monster!)
   $scope.enemyNumber = combatMath.getEnemy(3);
@@ -61,8 +64,10 @@ app.controller('combatController', function($scope, $location, $timeout, monster
     if(!$scope.buttonLock) {
       //Blocks combat buttons for 2 seconds
       $scope.buttonLock = true;
+      $scope.buttonState = "btn disabled";
       $timeout(function() { 
         $scope.buttonLock = false;
+        $scope.buttonState = "btn active";
       }, 2000);
       
       //Attack animation
@@ -123,8 +128,10 @@ app.controller('combatController', function($scope, $location, $timeout, monster
     if(!$scope.buttonLock) {
       //Blocks combat buttons for 2 seconds
       $scope.buttonLock = true;
+      $scope.buttonState = "btn disabled";
       $timeout(function() { 
         $scope.buttonLock = false;
+        $scope.buttonState = "btn active";
       }, 2000);
 
       //Defend animation
