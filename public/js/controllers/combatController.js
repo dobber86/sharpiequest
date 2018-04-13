@@ -1,5 +1,5 @@
 app.controller('combatController', function($scope, $location, $timeout, monsterList, combatMath, playerStats, playerQuotes) {  
-  $scope.playerName = playerStats.getUsername();
+  $scope.playerName = playerStats.getUsername()
   
   if ($scope.playerName == "") {
     $location.path('/');
@@ -13,21 +13,28 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   $scope.playerPercentHP = combatMath.getPercentHP($scope.playerCurrentHP, $scope.playerMaxHP);
   $scope.playerMaxMP = playerStats.getMaxMp();
   $scope.playerCurrentMP = playerStats.getMp();
-  $scope.playerPower = playerStats.getPower();
-  $scope.playerSpecialPower = playerStats.getSpecialPower();
+  $scope.playerPercentMP = combatMath.getPercentHP($scope.playerCurrentMP, $scope.playerMaxMP);
+  $scope.playerMaxPower = playerStats.getPower();
+  $scope.playerPower = $scope.playerMaxPower;
+  $scope.playerMaxSpecialPower = playerStats.getSpecialPower();
+  $scope.playerSpecialPower = $scope.playerMaxSpecialPower;
   $scope.playerAccuracy = playerStats.getAccuracy();
-  $scope.playerResistance = playerStats.getResistance();
+  $scope.playerMaxResistance = playerStats.getResistance();
+  $scope.playerResistance = $scope.playerMaxResistance;
+  $scope.playerInsight = playerStats.getInsight();
   $scope.playerLevel = playerStats.getLevel();
-  $scope.playerMoney = playerStats.getMoney();
   $scope.playerImage = "img/char/warrior/idle.gif";
 
-  // Player healthbar size
-  $scope.playerBar = {
+  // Player bar size
+  $scope.playerHealthBar = {
     "width" : $scope.playerPercentHP+"%"
+  }
+  $scope.playerManaBar = {
+    "width" : $scope.playerPercentMP+"%"
   }
 
   // Button state
-  $scope.buttonState = "btn active";
+  $scope.buttonState = "opacity: 1.0;"
 
   // Enemy selector (update when adding a new monster!)
   $scope.enemyNumber = combatMath.getEnemy(3);
@@ -53,7 +60,8 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   }
 
   // Combat metadata
-  $scope.turnCount = 0;
+  $scope.turnCount = 1;
+  $scope.turnCountSpecial = 0;
   $scope.combatLog = "It's a "+$scope.enemyName+"!";
   $scope.buttonLock = false;
 
@@ -66,10 +74,10 @@ app.controller('combatController', function($scope, $location, $timeout, monster
     if(!$scope.buttonLock) {
       //Blocks combat buttons for 2 seconds
       $scope.buttonLock = true;
-      $scope.buttonState = "btn disabled";
+      $scope.buttonState = "opacity: 0.2";
       $timeout(function() { 
         $scope.buttonLock = false;
-        $scope.buttonState = "btn active";
+        $scope.buttonState = "opacity: 1.0";
       }, 2000);
       
       //Attack animation
@@ -130,10 +138,10 @@ app.controller('combatController', function($scope, $location, $timeout, monster
     if(!$scope.buttonLock) {
       //Blocks combat buttons for 2 seconds
       $scope.buttonLock = true;
-      $scope.buttonState = "btn disabled";
+      $scope.buttonState = "opacity: 0.2";
       $timeout(function() { 
         $scope.buttonLock = false;
-        $scope.buttonState = "btn active";
+        $scope.buttonState = "opacity: 1.0";
       }, 2000);
 
       //Defend animation
@@ -143,7 +151,7 @@ app.controller('combatController', function($scope, $location, $timeout, monster
       if ($scope.enemyResponse === 1) {
           $scope.playerCurrentHP = combatMath.getDefend($scope.playerCurrentHP, $scope.enemyPower, $scope.playerResistance);
           $scope.playerPercentHP = combatMath.getPercentHP($scope.playerCurrentHP, $scope.playerMaxHP);
-          $scope.playerBar.width = $scope.playerPercentHP+"%";
+          $scope.playerHealthBar.width = $scope.playerPercentHP+"%";
           $scope.combatLog = "The "+$scope.enemyName+" attacks! You take "+combatMath.getDefendDamage($scope.enemyPower, $scope.playerResistance)+" damage.";
          
           // Check if player is still alive
@@ -174,22 +182,73 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   $scope.playerSpecial = function() {
     // Block if combat is over
     if(!$scope.buttonLock) {
+    // Block if you don't have enough MP
+    if ($scope.playerCurrentMP >= 3) {
+
       //Blocks combat buttons for 2 seconds
       $scope.buttonLock = true;
+      $scope.buttonState = "opacity: 0.2";
       $timeout(function() { 
         $scope.buttonLock = false;
+        $scope.buttonState = "opacity: 1.0";
       }, 2000);
 
+    //Attack animation
+    $scope.playerAnimate(1);
+
+    // Calculate damage
       if ($scope.enemyResponse === 1) {
-      }
-      if ($scope.enemyResponse === 2) {
-      }
-      if ($scope.enemyResponse === 3) {
+          $scope.enemyCurrentHP = combatMath.getAttack($scope.enemyCurrentHP, $scope.playerSpecialPower);
+          $scope.combatLog = "You deal "+$scope.playerSpecialPower+" damage.";
+
+          // Check if enemy is still alive
+          if ($scope.enemyCurrentHP === 0) {
+              $scope.enemyAlive = false;
+          }
+        
+          // If enemy is still alive, counterattack (after a short delay)
+          $scope.enemyAttack();
+        }
+
+        // Calculate damage
+        if ($scope.enemyResponse === 2) {
+          $scope.enemyCurrentHP = combatMath.getAttack($scope.enemyCurrentHP, $scope.playerSpecialPower);
+          $scope.combatLog = "You devastate the "+$scope.enemyName+"'s defences! You deal "+$scope.playerSpecialPower+" damage.";
+
+          // Check if enemy is still alive
+          if ($scope.enemyCurrentHP === 0) {
+            $scope.enemyAlive = false;
+        }
       }
 
+        //Special response
+        if ($scope.enemyResponse === 3) {
+          $scope.enemyCurrentHP = combatMath.getAttack($scope.enemyCurrentHP, $scope.playerSpecialPower);
+          $scope.combatLog = "You deal "+$scope.playerSpecialPower+" damage.";
+
+          // Check if enemy is still alive
+          if ($scope.enemyCurrentHP === 0) {
+              $scope.enemyAlive = false;
+          }
+        
+          // If enemy is still alive, counterattack (after a short delay)
+          if($scope.enemyAlive) {
+              $timeout(function() {
+              $scope.enemySpecial($scope.enemyName);
+            }, 1500);
+          }
+        }
+
       //End of turn events
+      $scope.playerCurrentMP-=3;
+      $scope.playerPercentMP = combatMath.getPercentHP($scope.playerCurrentMP, $scope.playerMaxMP);
+      $scope.playerManaBar.width = $scope.playerPercentMP+"%";
       $scope.endTurn();
     }
+  }
+  else {
+    $scope.characterQuote=("I don't have enough energy!");
+  }
   }
 
   $scope.enemyAttack = function() {
@@ -197,7 +256,7 @@ app.controller('combatController', function($scope, $location, $timeout, monster
       $timeout(function() {
         $scope.playerCurrentHP = combatMath.getAttack($scope.playerCurrentHP, $scope.enemyPower); 
         $scope.playerPercentHP = combatMath.getPercentHP($scope.playerCurrentHP, $scope.playerMaxHP);
-        $scope.playerBar.width = $scope.playerPercentHP+"%";
+        $scope.playerHealthBar.width = $scope.playerPercentHP+"%";
         $scope.combatLog = "The "+$scope.enemyName+" attacks! You take "+$scope.enemyPower+" damage.";
 
         // Check if player is still alive
@@ -210,16 +269,37 @@ app.controller('combatController', function($scope, $location, $timeout, monster
 
   $scope.enemySpecial = function(enemyName) {
     if (enemyName === "Slime") {
-      $scope.playerPower -= 1;
-      $scope.combatLog = "The "+$scope.enemyName+" lowers your attack power!";
+      $scope.playerPower = Math.max(($scope.playerMaxPower-1), $scope.playerPower-1);
+      $scope.combatLog = "The "+$scope.enemyName+" lowers your attack power for a turn!";
+      $scope.turnCountSpecial = $scope.turnCount +1;
     }
     if (enemyName === "Dino") {
-      $scope.playerResistance -= 1;
-      $scope.combatLog = "The "+$scope.enemyName+" lowers your resistance!";
+      $scope.playerResistance = Math.max(($scope.playerMaxResistance-1), $scope.playerResistance-1);
+      $scope.combatLog = "The "+$scope.enemyName+" lowers your resistance for a turn!";
+      $scope.turnCountSpecial = $scope.turnCount +1;
     }
     if (enemyName === "Reptile") {
-      $scope.playerPower -= 1;
-      $scope.combatLog = "The "+$scope.enemyName+" lowers your attack power!";
+      $scope.playerSpecialPower = Math.max(($scope.playerMaxSpecialPower-1), $scope.playerSpecialPower-1);
+      $scope.combatLog = "The "+$scope.enemyName+" lowers your special power for a turn!";
+      $scope.turnCountSpecial = $scope.turnCount +1;
+    }
+  }
+
+  $scope.enemySpecialResolve = function(enemyName) {
+    console.log($scope.turnCountSpecial);
+    if ($scope.turnCount == $scope.turnCountSpecial) {
+      if (enemyName === "Slime") {
+        $scope.playerPower += 1;
+        $scope.turncountSpecial = 0;
+      }
+      if (enemyName === "Dino") {
+        $scope.playerResistance += 1;
+        $scope.turncountSpecial = 0;
+      }
+      if (enemyName === "Reptile") {
+        $scope.playerSpecialPower += 1;
+        $scope.turncountSpecial = 0;
+      }
     }
   }
 
@@ -244,14 +324,12 @@ app.controller('combatController', function($scope, $location, $timeout, monster
       if ($scope.enemyAlive === false) {
         $scope.buttonLock = true;
         $scope.combatLog = "The "+$scope.enemyName+" is dead!";
-        $scope.characterQuote = "Victory!";
-        $scope.playerVictory();
+        $scope.characterQuote = "Victory!"
       }
       if ($scope.playerAlive === false) {
         $scope.buttonLock = true; 
         $scope.combatLog = "You are dead, oh dear!";
-        $scope.characterQuote = "Urgh...";
-        $scope.playerDead();
+        $scope.characterQuote = "Urgh..."
       }
     }, 2000);
 
@@ -262,26 +340,11 @@ app.controller('combatController', function($scope, $location, $timeout, monster
 
     $scope.characterQuote = playerQuotes.getQuote($scope.enemyName, $scope.enemyResponse);
 
+    //Very stupid fix, please ignore
+    $timeout(function() {
+        $scope.enemySpecialResolve($scope.enemyName);
+    }, 1500);
+
     $scope.turnCount++;
   }
-
-  $scope.playerVictory = function() {
-    $scope.playerLevel += 1;
-    playerStats.saveCombatUpdate(
-      $scope.playerCurrentHP,
-      $scope.playerCurrentMP,
-      $scope.playerXp,
-      $scope.playerLevel
-    );
-  }
-
-  $scope.playerDead = function() {
-    playerStats.saveCombatUpdate(
-      $scope.playerCurrentHP,
-      $scope.playerCurrentMP,
-      $scope.playerXp,
-      $scope.playerLevel
-    );
-  }
-
 });

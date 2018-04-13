@@ -1,53 +1,68 @@
 <div class="row healthbars">
-  <div class="col-sm-6">
+  <div class="col-sm-4 centered">
+    <p>You are on Level {{playerLevel}} (Wastelands)</p><br>
     <p>Turn: {{turnCount}}</p>
   </div>
-  <div class="col-sm-3">
+  <div class="col-sm-4">
     <p>{{playerName}}</p>
     <div class="progress statbar">
-        <div class="progress-bar bg-danger" ng-style="playerBar"><p>{{playerCurrentHP}}</p></div>
+        <div class="progress-bar bg-danger" ng-style="playerHealthBar"><p>{{playerCurrentHP}}</p></div>
     </div>
     <div class="progress">
-        <div class="progress-bar" ng-style="playerBar"><p>{{playerCurrentMP}}</p></div>
+        <div class="progress-bar" ng-style="playerManaBar"><p>{{playerCurrentMP}}</p></div>
     </div>
   </div>
-  <div class="col-sm-3">
+  <div class="col-sm-4">
     <p>{{enemyName}}</p>
-    <div class="progress">
+    <div class="progress statbar">
         <div class="progress-bar bg-danger" ng-style="enemyBar"><p>{{enemyCurrentHP}}</p></div>
     </div>
+    <p class="centered">"Blargh!"</p>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-sm-6">
-      <button class={{buttonState}} style="width: 100px" ng-click="playerAttack()">Attack</button><br><br>
-      <button class={{buttonState}} style="width: 100px" ng-click="playerDefend()">Defend</button><br><br>
-      <button class={{buttonState}} style="width: 100px" ng-click="playerSpecial()">Power</button>
+  <div class="col-sm-4">
+      <table class="table table-sm stats">
+        <tbody>
+          <tr>
+            <td>Pwr: {{playerPower}}</td>
+            <td>Spc: {{playerSpecialPower}}</td>
+            <td>Def: {{playerResistance}}</td>
+          </tr>
+          <tr>
+            <td>Acc: {{playerAccuracy}}</td>
+            <td>Ins: {{playerInsight}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <img class="img-fluid arrow" style="{{buttonState}}" src="img/hud/arrow-right.png"><img class="img-fluid hud pointer" style="{{buttonState}}" ng-click="playerAttack()" src="img/hud/attack.png"><p class="hudtext pointer" style="{{buttonState}}" ng-click="playerAttack()">Attack</p><br>
+      <img class="img-fluid arrow" style="{{buttonState}}" src="img/hud/arrow-right.png"><img class="img-fluid hud pointer" style="{{buttonState}}" ng-click="playerDefend()" src="img/hud/defend.png"><p class="hudtext pointer" style="{{buttonState}}" ng-click="playerDefend()">Defend</p><br>
+      <img class="img-fluid arrow" style="{{buttonState}}" src="img/hud/arrow-right.png"><img class="img-fluid hud pointer" style="{{buttonState}}" ng-click="playerSpecial()"src="img/hud/special.png"><p class="hudtext pointer" style="{{buttonState}}" ng-click="playerSpecial()">Devastate (3mp)</p>
   </div>
-  <div class="col-sm-6 spritecontainer">
-    <img class="img-fluid" src={{playerImage}}>
-    <img class="img-fluid" src={{enemyImage}}>
+  <div class="col-sm-8 spritecontainer">
+    <img class="float-left" id= "playerimage" src={{playerImage}}>
+    <img class="float-right" id= "enemyimage" src={{enemyImage}}>
 </div>
 </div>
-
-<!-- TIJDELIJKE KNOP -->
-<div class="row" ng-controller="updateController">
-  <button class={{buttonState}} style="width: 100px" ng-click="playerUpdate()">Update</button>
-</div>
-
-<!-- style="background: url('img/backgrounds/1.png') -->
-<!-- <img class="img-fluid" src="img/backgrounds/1.png" style="position: relative; left: 0; top: 0;"> -->
 
 <div class="row combatlog">
   <div class="col-sm-2">
     <img class="img-fluid centeredimg" src="img/char/warrior/faceset.png">
   </div>
-  <div class="col-sm-10">
+  <div class="col-sm-8">
     <p>{{combatLog}}</p>
     <p>"{{characterQuote}}"</p>
   </div>
+  <div class="col-sm-2">
+      <br><button style="width: 100px">Next</button>
+  </div>
 </div>
 
+<!-- <button class={{buttonState}} style="width: 100px" ng-click="playerAttack()">Attack</button><br><br>
+<button class={{buttonState}} style="width: 100px" ng-click="playerDefend()">Defend</button><br><br>
+<button class={{buttonState}} style="width: 100px" ng-click="playerSpecial()">Power</button><br><br> -->
 
+<!-- style="background: url('img/backgrounds/1.png') -->
+<!-- <img class="img-fluid" src="img/backgrounds/1.png" style="position: relative; left: 0; top: 0;"> -->
 
