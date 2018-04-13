@@ -29,7 +29,8 @@ app.controller('loginController',  function($scope, $location, $http, playerStat
                     $scope.loginPlayer.insight,
                     $scope.loginPlayer.specialpower,
                     $scope.loginPlayer.xp,
-                    $scope.loginPlayer.level
+                    $scope.loginPlayer.level,
+                    $scope.loginPlayer.money
                 );
                 $location.path('/combat/');
                 

@@ -41,7 +41,8 @@ app.post('/signin', function (req, res) {
         insight: req.body.insight,
         specialpower: req.body.specialpower,
         xp: req.body.xp,
-        level: req.body.level
+        level: req.body.level,
+        money: req.body.money
     };
 
     var sql = 'INSERT INTO players SET ?';
@@ -117,7 +118,7 @@ app.post('/update', function (req, res) {
     var connection = getConnection();
     connection.connect();
     
-    var username = req.body.username;
+    var user = req.body.username;
 
     var newUpdate = {
         hp: req.body.hp,
@@ -130,14 +131,16 @@ app.post('/update', function (req, res) {
         insight: req.body.insight,
         specialpower: req.body.specialpower,
         xp: req.body.xp,
-        level: req.body.level
+        level: req.body.level,
+        money: req.body.money
     };
 
-    var sql = 'UPDATE players SET ? WHERE username = ' + username;
+    var sql = "UPDATE players SET ? WHERE username = '" + user + "'";
   
     var query = connection.query(sql, newUpdate, function (err, result) {
       if(err) {
-          console.log("foutje in update: " + err);
+          console.log(user + "foutje in update: " + err);
+          console.log(sql);
       }
         console.log("updated " +  newUpdate);
       res.status(200).end();
