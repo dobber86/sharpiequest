@@ -4,5 +4,7 @@ app.controller('lootController',  function($scope, $location, $http, playerStats
     if ($scope.playerName == "") {
         $location.path('/');
     }
+
+    $scope.chestImage = "img/loot/Open.gif";
    
 });
