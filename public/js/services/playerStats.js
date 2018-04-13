@@ -6,7 +6,7 @@ app.service('playerStats', function() {
         mp = 10,
         maxmp = 10,
         power = 3,
-        resistance = 13,
+        resistance = 3,
         accuracy = 85,
         insight = 85,
         specialpower = 3,
