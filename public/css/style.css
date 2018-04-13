@@ -11,6 +11,7 @@
 }
 
 .healthbars {
+    background-color: #000000;
     padding-bottom: 10px;
 }
 
@@ -24,14 +25,46 @@
     background-color: #000000;
 }
 
+.centered {
+    text-align: center;
+}
+
 .centeredimg {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
+.spritecontainer {
+    background: url('../img/backgrounds/1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 25vw;
+}
+
 .spritecontainer img {
+    width: 15vw;
+    height: auto;
+    overflow: hidden;
+    margin: -50px;
     transform: scaleX(-1);
+}
+
+#playerimage {
+    position: absolute;
+    left: 20%;
+    margin-top: 5vw;
+}
+
+#enemyimage {
+    position: absolute;
+    right: 20%;
+    margin-top: 6vw;
+}
+
+.statbar {
+    margin-bottom: 10px;
 }
 
 h1, p {
@@ -40,10 +73,10 @@ h1, p {
 
 h1 {
     font-family: pixeledenglishfont, Calibri, Arial, Helvetica, sans-serif;
-    font-size: 72px;
+    font-size: 5vw;
 }
 
-p, button {
+p, button, td {
     font-family: pixeledenglishfont, Calibri, Arial, Helvetica, sans-serif;
     font-size: 24px;
 }
@@ -58,4 +91,36 @@ p, button {
 
 .modal-content {
     background-color: #000000;
+}
+
+.hud {
+    width: 75px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #f4eb42;
+    border-radius: 2px;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+.hudtext {
+    display: inline;
+}
+
+.pointer:hover {
+    cursor:pointer;
+}
+
+.arrow {
+    width: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+.stats {
+    margin-bottom: 0px;
+}
+
+.stats td, .stats th {
+    border: none;
 }
