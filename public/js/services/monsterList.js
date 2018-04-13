@@ -6,6 +6,9 @@ app.service('monsterList', function() {
     var enemy1Accuracy = 85;
     var enemy1Resistance = 1;
     var enemy1Image = "img/monster/slime/idle.gif"
+    var enemy1Attack = "img/monster/slime/attack.gif"
+    var enemy1Special = "img/monster/slime/attack2.gif"
+    var enemy1Hit = "img/monster/slime/hit.gif"
 
     var enemy2Name = "Dino";
     var enemy2MaxHP = 15;
@@ -14,6 +17,9 @@ app.service('monsterList', function() {
     var enemy2Accuracy = 85;
     var enemy2Resistance = 1;
     var enemy2Image = "img/monster/dino/idle.gif"
+    var enemy2Attack = "img/monster/dino/attack.gif"
+    var enemy2Special = "img/monster/dino/attack2.gif"
+    var enemy2Hit = "img/monster/dino/hit.gif"
 
     var enemy3Name = "Reptile";
     var enemy3MaxHP = 20;
@@ -22,6 +28,9 @@ app.service('monsterList', function() {
     var enemy3Accuracy = 85;
     var enemy3Resistance = 1;
     var enemy3Image = "img/monster/reptile/idle.gif"
+    var enemy3Attack = "img/monster/reptile/attack.gif"
+    var enemy3Special = "img/monster/reptile/guard.gif"
+    var enemy3Hit = "img/monster/reptile/hit.gif"
 
     this.getEnemyName=function(x){
         if (x === 1) {
