@@ -14,5 +14,8 @@ create table players (
   insight int(3),
   specialpower int(3),
   xp int(3),
-  level int(3)
+  level int(3),
+  money int(3)
 );
+
+alter table players add column money int(3);
