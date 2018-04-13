@@ -148,6 +148,27 @@ app.post('/update', function (req, res) {
     connection.end();
 });
 
+// DELETE PLAYER
+app.post('/delete', function (req, res) {
+    console.log("in delete");
+    var connection = getConnection();
+    connection.connect();
+    
+    var user = req.body.username;
+
+    var sql = "DELETE FROM players WHERE username = '" + user + "'";
+  
+    var query = connection.query(sql, function (err, result) {
+      if(err) {
+          console.log(user + "foutje in delete: " + err);
+          console.log(sql);
+      }
+        console.log("Deleted " +  user);
+      res.status(200).end();
+    });
+    connection.end();
+});
+
 app.get('/', function(req, res) {
     res.send('Hoi, je route provider werkt niet.');
 });
