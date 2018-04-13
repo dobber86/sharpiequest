@@ -1,18 +1,48 @@
 app.service('playerStats', function() {
     
-    var username = "",
-        hp = 15,
-        maxhp = 15,
-        mp = 10,
-        maxmp = 10,
-        power = 3,
-        resistance = 3,
-        accuracy = 85,
-        insight = 85,
-        specialpower = 3,
-        xp = 1,
-        level = 1,
-        money = 0;
+        // Initial values:
+    var inUsername = "",
+        inHp = 15,
+        inMaxHp = 15,
+        inMp = 10,
+        inMaxMp = 10,
+        inPower = 3,
+        inResistance = 3,
+        inAccuracy = 85,
+        inInsight = 85,
+        inSpecialPower = 3,
+        inXp = 1,
+        inLevel = 1,
+        inMoney = 0;
+
+    var username = inUsername,
+        hp = inHp,
+        maxhp = inMaxHp,
+        mp = inMp,
+        maxmp = inMaxMp,
+        power = inPower,
+        resistance = inResistance,
+        accuracy = inAccuracy,
+        insight = inInsight,
+        specialpower = inSpecialPower,
+        xp = inXp,
+        level = inLevel,
+        money = inMoney;
+
+    this.saveReset = function() {
+        hp = inHp,
+        maxhp = inMaxHp,
+        mp = inMp,
+        maxmp = inMaxMp,
+        power = inPower,
+        resistance = inResistance,
+        accuracy = inAccuracy,
+        insight = inInsight,
+        specialpower = inSpecialPower,
+        xp = inXp,
+        level = inLevel,
+        money = inMoney
+    }
 
     this.saveUsername = function(dbusername, dbhp, dbmhp, dbmp, dbmmp, dbpow, dbres, dbacc, dbins, dbspe, dbxp, dblvl, dbmon) {
         username = dbusername,
