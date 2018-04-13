@@ -18,6 +18,7 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   $scope.playerAccuracy = playerStats.getAccuracy();
   $scope.playerResistance = playerStats.getResistance();
   $scope.playerLevel = playerStats.getLevel();
+  $scope.playerMoney = playerStats.getMoney();
   $scope.playerImage = "img/char/warrior/idle.gif";
 
   // Player healthbar size

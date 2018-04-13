@@ -13,7 +13,8 @@ app.controller('signinController',  function($scope, $http, playerStats) {
         insight: playerStats.getInsight(),
         specialpower: playerStats.getSpecialPower(),
         xp: playerStats.getXp(),
-        level: playerStats.getLevel()
+        level: playerStats.getLevel(),
+        money: playerStats.getMoney()
     },
 
     $scope.doSignin = function () {

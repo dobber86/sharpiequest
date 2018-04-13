@@ -11,9 +11,10 @@ app.service('playerStats', function() {
         insight = 85,
         specialpower = 3,
         xp = 1,
-        level = 1;
+        level = 1,
+        money = 0;
 
-    this.saveUsername = function(dbusername, dbhp, dbmhp, dbmp, dbmmp, dbpow, dbres, dbacc, dbins, dbspe, dbxp, dblvl) {
+    this.saveUsername = function(dbusername, dbhp, dbmhp, dbmp, dbmmp, dbpow, dbres, dbacc, dbins, dbspe, dbxp, dblvl, dbmon) {
         username = dbusername,
         hp = dbhp,
         maxhp = dbmhp,
@@ -25,7 +26,8 @@ app.service('playerStats', function() {
         insight = dbins,
         specialpower = dbspe,
         xp = dbxp,
-        level = dblvl
+        level = dblvl,
+        money = dbmon
     }
 
     this.saveCombatUpdate = function(cHp, cMp, cXp, cLvl) {
@@ -81,5 +83,9 @@ app.service('playerStats', function() {
 
     this.getLevel = function() {
         return level;
+    }
+
+    this.getMoney = function() {
+        return money;
     }
 });

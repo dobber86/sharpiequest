@@ -2,6 +2,7 @@ app.controller('updateController',  function($scope, $location, $http, playerSta
     
     $scope.playerUpdate = function () {
         console.log("in update");
+
         $scope.update = {
             username: playerStats.getUsername(),
             hp: playerStats.getHp(),
@@ -14,7 +15,8 @@ app.controller('updateController',  function($scope, $location, $http, playerSta
             insight: playerStats.getInsight(),
             specialpower: playerStats.getSpecialPower(),
             xp: playerStats.getXp(),
-            level: playerStats.getLevel()
+            level: playerStats.getLevel(),
+            money: playerStats.getMoney()
         };
 
         if ($scope.update.hp === 0) {

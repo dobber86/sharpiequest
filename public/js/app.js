@@ -17,5 +17,9 @@ app.config(function($routeProvider) {
     .when("/dead", {
         templateUrl : "views/dead.html",
         controller: "deadController"
+    })
+    .when("/shop", {
+        templateUrl: "views/shop.html",
+        controller: "shopController"
     });
 });
