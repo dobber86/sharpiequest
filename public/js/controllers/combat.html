@@ -1,0 +1,120 @@
+<div class="row healthbars">
+  <div class="col-sm-4 centered">
+    <p>You are on Level {{playerLevel}} (Wastelands)</p><br>
+    <p>Turn: {{turnCount}}</p>
+  </div>
+  <div class="col-sm-4">
+    <p>{{playerName}}</p>
+    <div class="progress statbar">
+        <div class="progress-bar bg-danger" ng-style="playerHealthBar"><p>{{playerCurrentHP}}</p></div>
+    </div>
+    <div class="progress">
+        <div class="progress-bar" ng-style="playerManaBar"><p>{{playerCurrentMP}}</p></div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <p>{{enemyName}}</p>
+    <div class="progress statbar">
+        <div class="progress-bar bg-danger" ng-style="enemyBar"><p>{{enemyCurrentHP}}</p></div>
+    </div>
+    <p class="centered">"Blargh!"</p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-4">
+      <table class="table table-sm nomarginbottom noborder">
+        <tbody>
+          <tr>
+            <td>Pwr: {{playerPower}}</td>
+            <td>Spc: {{playerSpecialPower}}</td>
+            <td>Def: {{playerResistance}}</td>
+          </tr>
+          <tr>
+            <td>Acc: {{playerAccuracy}}</td>
+            <td>Ins: {{playerInsight}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <img class="img-fluid arrow" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="arrow1State" src="img/hud/arrow-right.png">
+      <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" style="{{buttonState}}" ng-click="playerAttack()" src="img/hud/attack.png">
+      <p class="hudtext pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" style="{{buttonState}}" ng-click="playerAttack()">Attack</p><br>
+
+      <img class="img-fluid arrow" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="arrow2State" src="img/hud/arrow-right.png">
+      <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" style="{{buttonState}}" ng-click="playerDefend()" src="img/hud/defend.png">
+      <p class="hudtext pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" style="{{buttonState}}" ng-click="playerDefend()">Defend</p><br>
+
+      <img class="img-fluid arrow" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="arrow3State" src="img/hud/arrow-right.png">
+      <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" style="{{buttonState}}" ng-click="playerSpecial()"src="img/hud/special.png">
+      <p class="hudtext pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" style="{{buttonState}}" ng-click="playerSpecial()">Devastate (3mp)</p>
+    </div>
+  <div class="col-sm-8 spritecontainer">
+    <img class="float-left" id= "playerimage" src={{playerImage}}>
+    <img class="float-right" id= "enemyimage" src={{enemyImage}}>
+</div>
+</div>
+
+<div class="row combatlog">
+  <div class="col-sm-2">
+    <img class="img-fluid centeredimg" src="img/char/warrior/faceset.png">
+  </div>
+  <div class="col-sm-7">
+    <p>{{combatLog}}</p>
+    <p>"{{characterQuote}}"</p>
+  </div>
+  <div class="col-sm-3">
+    <br>
+    <div class="btn-group">
+      <button type="button" class="btn btn-light" onclick="playMusic()"></span>Vol</button>
+      <button type="button" class="btn btn-light" onclick="volDown()"></span>D</button>
+      <button type="button" class="btn btn-light" onclick="volUp()"></span>U</button>
+      </div>
+    <button ng-controller="updateController" class="btn btn-light disabled" style="width: 100px" ng-click="playerUpdate()">Next</button>
+  </div>
+</div>
+
+<audio id="music" src="img/music/theme-1.ogg"></audio>
+
+<script>
+var theme = document.getElementById("music");
+theme.volume = 0.1;
+theme.loop = true;
+theme.autoplay = true; 
+var play = true;
+
+function playMusic() {
+  return theme.paused ? theme.play() : theme.pause();
+};
+
+function volUp() {
+  if (theme.volume < 1) {
+    theme.volume+=0.05;
+  }
+};
+
+function volDown() {
+  if (theme.volume > 0) {
+    theme.volume-=0.05;
+  }
+};
+
+</script>
+
+<!-- <script>
+    document.onkeydown = function(evt) {
+      evt = evt || window.event;
+      if (evt.keyCode == 13) {
+        
+      }
+    };
+  
+</script> -->
+
+<!-- <button class={{buttonState}} style="width: 100px" ng-click="playerAttack()">Attack</button><br><br>
+<button class={{buttonState}} style="width: 100px" ng-click="playerDefend()">Defend</button><br><br>
+<button class={{buttonState}} style="width: 100px" ng-click="playerSpecial()">Power</button><br><br> -->
+
+<!-- style="background: url('img/backgrounds/1.png') -->
+<!-- <img class="img-fluid" src="img/backgrounds/1.png" style="position: relative; left: 0; top: 0;"> -->
+
