@@ -5,9 +5,32 @@
    src: url(pixeledenglishfont.ttf);
 }
 
+h1, p {
+    margin-bottom: 0;
+}
+
+h1 {
+    font-family: pixeledenglishfont, Calibri, Arial, Helvetica, sans-serif;
+    font-size: 5vw;
+}
+
+h5 {
+    font-family: pixeledenglishfont, Calibri, Arial, Helvetica, sans-serif;
+    font-size: 32px;
+}
+
+p, a, td, button, form, input {
+    font-family: pixeledenglishfont, Calibri, Arial, Helvetica, sans-serif;
+    font-size: 24px;
+}
+
 .container {
     background-color: #333333;
     color: #ffffff;
+}
+
+.combatlog {
+    background-color: #000000;
 }
 
 .healthbars {
@@ -21,7 +44,7 @@
     text-align: center;
 }
 
-.combatlog {
+.modal-content {
     background-color: #000000;
 }
 
@@ -33,6 +56,39 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.flip {
+    transform: scaleX(-1);
+}
+
+.margintop {
+    margin-top: 15px;
+}
+
+.marginbottom {
+    margin-bottom: 15px;
+}
+
+.noborder tr, .noborder td {
+    border: none;
+}
+
+.nomarginbottom {
+    margin-bottom: 0px;
+}
+
+.pointer:hover {
+    cursor:pointer;
+}
+
+#underline {
+    color: #0000ff;
+}
+
+#underline:hover {
+    color: #9999ff;
+    text-decoration: underline;
 }
 
 .spritecontainer {
@@ -51,6 +107,13 @@
     transform: scaleX(-1);
 }
 
+.logincontainer {
+    background: url('../img/backgrounds/21.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
 #playerimage {
     position: absolute;
     left: 20%;
@@ -63,34 +126,19 @@
     margin-top: 6vw;
 }
 
+
+
+
 .statbar {
     margin-bottom: 10px;
-}
-
-h1, p {
-    margin-bottom: 0;
-}
-
-h1 {
-    font-family: pixeledenglishfont, Calibri, Arial, Helvetica, sans-serif;
-    font-size: 5vw;
-}
-
-p, button, td {
-    font-family: pixeledenglishfont, Calibri, Arial, Helvetica, sans-serif;
-    font-size: 24px;
 }
 
 .progress {
     height: 35px;
 }
 
-.progress p{
+.progress p {
     padding-top: 5px;
-}
-
-.modal-content {
-    background-color: #000000;
 }
 
 .hud {
@@ -99,28 +147,17 @@ p, button, td {
     border-width: 3px;
     border-color: #f4eb42;
     border-radius: 2px;
-    margin-right: 15px;
     margin-top: 15px;
+    margin-right: 0px;
 }
 
 .hudtext {
     display: inline;
-}
-
-.pointer:hover {
-    cursor:pointer;
+    padding-left: 15px;
 }
 
 .arrow {
-    width: 15px;
-    margin-right: 15px;
+    padding-right: 15px;
+    width: 30px;
     margin-top: 15px;
-}
-
-.stats {
-    margin-bottom: 0px;
-}
-
-.stats td, .stats th {
-    border: none;
-}
+}   
