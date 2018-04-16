@@ -1,6 +1,6 @@
 app.service('combatMath', function() {
   this.getEnemy=function(x) {
-    return Math.floor((Math.random() * x) + 1);
+    return Math.floor(Math.random() * x);
   }
   this.getResponse=function(x) {
     return Math.floor((Math.random() * x) + 1);
