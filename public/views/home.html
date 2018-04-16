@@ -1,63 +1,75 @@
-<br>
-
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-sm-12 centered">
+    <p>In the year 13xx, a mighty Wizard named Sharpie foretold a prophecy:</p>
+    <p>A hero would travel all across the land. From the front, to its' farthest end, and back again.</p>
+    <p>And once that journey was complete, the hero would face a true challenge.</p>
+    <br>
+    <p>"That is the game, and that is how the game is played."</p>
+  </div>
+</div>
 
-    <!-- SIGN IN -->
-    <div ng-controller="signinController">
-
-      <!-- Button trigger Sign In modal -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Sign In</button>
-          
-      <!-- Modal Sign In -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-              <div class="modal-body">
-
-                <form>
-                  <div class="form-group">
-                    <label for="exampleInputEmail1">Username</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Username" ng-model="signin.username">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="signin.password">
-                    <small class="form-text text-muted">We'll never share your username and/or password with anyone else.</small>
-                  </div>
-                </form>
-                <p>{{ signinResponse }}</p>
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" ng-click="doSignin()">Submit</button>
-              </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <br> <!-- WOW! -->
-
+<div class="row logincontainer">
+  <div class="col-sm-3">
+    <img class="img-fluid centeredimg flip" src="img/char/warrior/idle.gif">
+  </div>
+  <div class="col-sm-6 centered">
     <!-- LOG IN -->
     <div ng-controller="loginController">
-      <form>
-          <input type="text" ng-model="login.username" placeholder="Username">
-          <input type="password" ng-model="login.password" placeholder="Password">
-          <button  ng-click="doLogin()">Log In</button>
-      </form>
+      <div class="form-group margintop">
+        <input type="text" class="form-control" ng-model="login.username" placeholder="Username">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" ng-model="login.password" placeholder="Password">
+      </div>
+      <button class="btn btn-light marginbottom" ng-click="doLogin()">Log In</button>
       <p>{{ loginPlayer.username }} {{ loginWrong }}</p>
     </div>
+  </div>
+  <div class="col-sm-3">
+    <img class="img-fluid centeredimg flip" src="img/monster/slime/idle.gif">
+  </div>
+</div>
 
-    <br>
+<div class="row">
+  <div class="col-sm-12 centered">
+    <a class="pointer" data-toggle="modal" data-target="#exampleModal" id="underline">Don't have an account? Sign in!</a>
+  </div>
+</div>
 
+<!-- SIGN IN -->
+  <div ng-controller="signinController">
+          
+  <!-- Modal Sign In -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Username</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Username" ng-model="signin.username">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" ng-model="signin.password">
+              <small class="form-text text-muted">We'll never share your username and/or password with anyone else, unless it's hilarious.</small>
+            </div>
+          </form>
+          <p>{{ signinResponse }}</p>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" ng-click="doSignin()">Submit</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
