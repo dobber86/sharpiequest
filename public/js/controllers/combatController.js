@@ -23,6 +23,7 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   $scope.playerResistance = $scope.playerMaxResistance;
   $scope.playerInsight = playerStats.getInsight();
   $scope.playerLevel = playerStats.getLevel();
+  $scope.playerMoney = playerStats.getMoney();
   $scope.playerImage = "img/char/warrior/idle.gif";
 
   // Player bar size
@@ -381,12 +382,14 @@ app.controller('combatController', function($scope, $location, $timeout, monster
       if ($scope.enemyAlive === false) {
         $scope.buttonLock = true;
         $scope.combatLog = "The "+$scope.enemyName+" is dead!";
-        $scope.characterQuote = "Victory!"
+        $scope.characterQuote = "Victory!";
+        $scope.playerVictory();
       }
       if ($scope.playerAlive === false) {
         $scope.buttonLock = true; 
         $scope.combatLog = "You are dead, oh dear!";
-        $scope.characterQuote = "Urgh..."
+        $scope.characterQuote = "Urgh...";
+        $scope.playerDead();
       }
     }, 2000);
 
@@ -403,5 +406,24 @@ app.controller('combatController', function($scope, $location, $timeout, monster
     }, 1500);
 
     $scope.turnCount++;
+  }
+  
+  $scope.playerVictory = function() {
+    $scope.playerLevel += 1;
+    playerStats.saveCombatUpdate(
+      $scope.playerCurrentHP,
+      $scope.playerCurrentMP,
+      $scope.playerXp,
+      $scope.playerLevel
+    );
+  }
+
+  $scope.playerDead = function() {
+    playerStats.saveCombatUpdate(
+      $scope.playerCurrentHP,
+      $scope.playerCurrentMP,
+      $scope.playerXp,
+      $scope.playerLevel
+    );
   }
 });
