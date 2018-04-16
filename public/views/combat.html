@@ -70,7 +70,9 @@
       <button type="button" class="btn btn-light" onclick="volDown()"></span>D</button>
       <button type="button" class="btn btn-light" onclick="volUp()"></span>U</button>
       </div>
-    <button class="btn btn-light disabled" style="width: 100px;">Next</button>
+    <div ng-controller="updateController">
+      <button class="btn btn-light disabled" style="width: 100px" ng-click="playerUpdate()">Next</button>
+    </div>
   </div>
 </div>
 
