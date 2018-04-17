@@ -1,9 +1,15 @@
-app.controller('combatController', function($scope, $location, $timeout, monsterList, combatMath, playerStats, playerQuotes) {  
+app.controller('combatController', function($scope, $location, $timeout, monsterList, combatMath, playerStats, playerQuotes, soundHandler) {  
+  //Get player name
   $scope.playerName = playerStats.getUsername()
   
+  //If there is no player name, redirect to homepage (happens on page reload)
   if ($scope.playerName == "") {
     $location.path('/');
   }
+
+  // Enemy selector (update when adding a new monster!)
+  $scope.enemyNumber = combatMath.getEnemy(3);
+  // $scope.enemyNumber = 1;
 
   // Player statistics and conditions (might be moved to object later)
   $scope.playerAlive = true;
@@ -25,6 +31,63 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   $scope.playerLevel = playerStats.getLevel();
   $scope.playerMoney = playerStats.getMoney();
   $scope.playerImage = "img/char/warrior/idle.gif";
+  $scope.playerImageOverlay = monsterList.getPlayerImageOverlay($scope.enemyNumber);
+
+  // Enemy statistics and conditions retrieved from the monster list
+  $scope.enemyName = monsterList.getEnemy($scope.enemyNumber).name;
+  $scope.enemyAlive = true;
+  $scope.enemyMaxHP = monsterList.getEnemy($scope.enemyNumber).maxHP;
+  $scope.enemyCurrentHP = $scope.enemyMaxHP;
+  $scope.enemyPercentHP = combatMath.getPercentHP($scope.enemyCurrentHP, $scope.enemyMaxHP);
+  $scope.enemyPower = monsterList.getEnemy($scope.enemyNumber).power;
+  $scope.enemySpecialPower = monsterList.getEnemy($scope.enemyNumber).specialPower;
+  $scope.enemyAccuracy = monsterList.getEnemy($scope.enemyNumber).accuracy;
+  $scope.enemyResistance = monsterList.getEnemy($scope.enemyNumber).resistance;
+  $scope.enemyImage = monsterList.getEnemyImage($scope.enemyNumber, "idle");
+  $scope.enemyImageOverlay = "img/fx/3filter.gif";
+
+  // Enemy determines a random action (1 is attack, 2 is defend, 3 is special)
+  $scope.enemyResponse = combatMath.getResponse(3);
+
+  // Character quote
+  $scope.characterQuote = playerQuotes.getQuote($scope.enemyName, $scope.enemyResponse);
+
+  // Music & sound
+  $scope.music = soundHandler.getMusic($scope.enemyNumber);
+  $scope.sound = soundHandler.getSound("slash");
+  $scope.reaction = soundHandler.getSound("slash1");
+  $scope.menu = soundHandler.getSound("menu");
+  var music = document.getElementById("music");
+  var sound = document.getElementById("sound");
+  var reaction = document.getElementById("reaction");
+  var menu = document.getElementById("menu");
+  var mbutton = document.getElementById("musicbutton");
+  var sbutton = document.getElementById("soundbutton");
+  music.volume = soundHandler.getVolume("music");
+  sound.volume = soundHandler.getVolume("sound");
+  reaction.volume = soundHandler.getVolume("sound");
+  menu.volume = soundHandler.getVolume("sound");
+  music.loop = true;
+  music.autoplay = true;
+  
+  $scope.pauseMusic = function() { 
+    soundHandler.pauseMusic();
+    mbutton.classList.toggle("btn-light");
+    mbutton.classList.toggle("btn-danger");
+  }
+  $scope.pauseSound = function() { 
+    sound.volume = soundHandler.pauseSound();
+    reaction.volume = soundHandler.pauseSound();
+    menu.volume = soundHandler.pauseSound();
+    sbutton.classList.toggle("btn-light");
+    sbutton.classList.toggle("btn-danger"); 
+  }
+ 
+  // Combat metadata
+  $scope.turnCount = 1;
+  $scope.turnCountSpecial = 0;
+  $scope.combatLog = "It's a "+$scope.enemyName+"!";
+  $scope.buttonLock = false;
 
   // Player bar size
   $scope.playerHealthBar = {
@@ -34,9 +97,17 @@ app.controller('combatController', function($scope, $location, $timeout, monster
     "width" : $scope.playerPercentMP+"%"
   }
 
-  // Button state
-  $scope.buttonState = "opacity: 1.0;";
+  // Enemy healthbar size
+  $scope.enemyBar = {
+    "width" : $scope.enemyPercentHP+"%"
+  }
 
+  // Button state
+  $scope.buttonState = {
+    "opacity": "1.0"
+  }
+
+  // Arrow state
   $scope.arrow1State = {
     "display" : "none"
   }
@@ -47,37 +118,12 @@ app.controller('combatController', function($scope, $location, $timeout, monster
     "display" : "none"
   }
 
-  // Enemy selector (update when adding a new monster!)
-  $scope.enemyNumber = combatMath.getEnemy(3);
-
-  // Enemy statistics and conditions retrieved from the monster list
-  $scope.enemyName = monsterList.getEnemyName($scope.enemyNumber);
-  $scope.enemyAlive = true;
-  $scope.enemyMaxHP = monsterList.getEnemyHP($scope.enemyNumber);
-  $scope.enemyCurrentHP = $scope.enemyMaxHP;
-  $scope.enemyPercentHP = combatMath.getPercentHP($scope.enemyCurrentHP, $scope.enemyMaxHP);
-  $scope.enemyPower = monsterList.getEnemyPower($scope.enemyNumber);
-  $scope.enemySpecialPower = monsterList.getEnemySpecialPower($scope.enemyNumber);
-  $scope.enemyAccuracy = monsterList.getEnemyAccuracy($scope.enemyNumber);
-  $scope.enemyResistance = monsterList.getEnemyResistance($scope.enemyNumber);
-  $scope.enemyImage = monsterList.getEnemyImage($scope.enemyNumber, "idle");
-
-  // Enemy determines a random action (1 is attack, 2 is defend, 3 is special)
-  $scope.enemyResponse = combatMath.getResponse(3);
-
-  // Enemy healthbar size
-  $scope.enemyBar = {
-    "width" : $scope.enemyPercentHP+"%"
+  $scope.playerSpecialState = {
+    "display" : "none"
   }
-
-  // Combat metadata
-  $scope.turnCount = 1;
-  $scope.turnCountSpecial = 0;
-  $scope.combatLog = "It's a "+$scope.enemyName+"!";
-  $scope.buttonLock = false;
-
-  // Character quote
-  $scope.characterQuote = playerQuotes.getQuote($scope.enemyName, $scope.enemyResponse);
+  $scope.enemySpecialState = {
+    "display" : "none"
+  }
 
   // When attack button is pressed:
   $scope.playerAttack = function() {
@@ -85,10 +131,10 @@ app.controller('combatController', function($scope, $location, $timeout, monster
     if(!$scope.buttonLock) {
       //Blocks combat buttons for 2 seconds
       $scope.buttonLock = true;
-      $scope.buttonState = "opacity: 0.2";
+      $scope.buttonState = { "opacity": "0.2" }
       $timeout(function() { 
         $scope.buttonLock = false;
-        $scope.buttonState = "opacity: 1.0";
+        $scope.buttonState = { "opacity": "1.0" }
       }, 2000);
       
       //Attack animation
@@ -132,6 +178,7 @@ app.controller('combatController', function($scope, $location, $timeout, monster
           // If enemy is still alive, counterattack (after a short delay)
           if($scope.enemyAlive) {
               $timeout(function() {
+              $scope.enemyAnimate($scope.enemyNumber, "special");
               $scope.enemySpecial($scope.enemyName);
             }, 1500);
           }
@@ -149,10 +196,10 @@ app.controller('combatController', function($scope, $location, $timeout, monster
     if(!$scope.buttonLock) {
       //Blocks combat buttons for 2 seconds
       $scope.buttonLock = true;
-      $scope.buttonState = "opacity: 0.2";
+      $scope.buttonState = { "opacity": "0.2" }
       $timeout(function() { 
         $scope.buttonLock = false;
-        $scope.buttonState = "opacity: 1.0";
+        $scope.buttonState = { "opacity": "1.0" }
       }, 2000);
 
       //Defend animation
@@ -160,7 +207,7 @@ app.controller('combatController', function($scope, $location, $timeout, monster
 
       // Calculate damage and update healthbar
       if ($scope.enemyResponse === 1) {
-          $scope.enemyAnimate($scope.enemyNumber, 1);
+          $scope.enemyAnimate($scope.enemyNumber, "attack");
           $scope.playerCurrentHP = combatMath.getDefend($scope.playerCurrentHP, $scope.enemyPower, $scope.playerResistance);
           $scope.playerPercentHP = combatMath.getPercentHP($scope.playerCurrentHP, $scope.playerMaxHP);
           $scope.playerHealthBar.width = $scope.playerPercentHP+"%";
@@ -180,6 +227,7 @@ app.controller('combatController', function($scope, $location, $timeout, monster
       //Special response
       if ($scope.enemyResponse === 3) {
         $timeout(function() {
+          $scope.enemyAnimate($scope.enemyNumber, "special");
           $scope.enemySpecial($scope.enemyName);
         }, 1500);
       }
@@ -188,7 +236,6 @@ app.controller('combatController', function($scope, $location, $timeout, monster
       $scope.endTurn();
     }
   }
-  
 
   //When power button is pressed:
   $scope.playerSpecial = function() {
@@ -199,14 +246,14 @@ app.controller('combatController', function($scope, $location, $timeout, monster
 
       //Blocks combat buttons for 2 seconds
       $scope.buttonLock = true;
-      $scope.buttonState = "opacity: 0.2";
+      $scope.buttonState = { "opacity": "0.2" }
       $timeout(function() { 
         $scope.buttonLock = false;
-        $scope.buttonState = "opacity: 1.0";
+        $scope.buttonState = { "opacity": "1.0" }
       }, 2000);
 
     //Attack animation
-    $scope.playerAnimate(1);
+    $scope.playerAnimate(3);
 
     // Calculate damage
       if ($scope.enemyResponse === 1) {
@@ -246,51 +293,29 @@ app.controller('combatController', function($scope, $location, $timeout, monster
           // If enemy is still alive, counterattack (after a short delay)
           if($scope.enemyAlive) {
               $timeout(function() {
+              $scope.enemyAnimate($scope.enemyNumber, "special");
               $scope.enemySpecial($scope.enemyName);
             }, 1500);
           }
         }
 
-      //End of turn events
+      // End of turn events
       $scope.playerCurrentMP-=3;
       $scope.playerPercentMP = combatMath.getPercentHP($scope.playerCurrentMP, $scope.playerMaxMP);
       $scope.playerManaBar.width = $scope.playerPercentMP+"%";
       $scope.endTurn();
-    }
-  }
-  else {
-    $scope.characterQuote=("I don't have enough energy!");
-  }
-  }
-
-  $scope.arrowStateOn = function(x) {
-    if (x === 1){
-      $scope.arrow1State.display = "";
-    }
-    if (x === 2){
-      $scope.arrow2State.display = "";
-    }
-    if (x === 3){
-      $scope.arrow3State.display = "";
-    }
-  }
-
-  $scope.arrowStateOff = function(x) {
-    if (x === 1){
-      $scope.arrow1State.display = "none";
-    }
-    if (x === 2){
-      $scope.arrow2State.display = "none";
-    }
-    if (x === 3){
-      $scope.arrow3State.display = "none";
+      }
+      // If player doesn't have enough MP, give a response
+      else {
+        $scope.characterQuote=("I don't have enough energy!");
+      }
     }
   }
 
   $scope.enemyAttack = function() {
     if($scope.enemyAlive) {
       $timeout(function() {
-        $scope.enemyAnimate($scope.enemyNumber, 1);
+        $scope.enemyAnimate($scope.enemyNumber, "attack");
         $scope.playerCurrentHP = combatMath.getAttack($scope.playerCurrentHP, $scope.enemyPower); 
         $scope.playerPercentHP = combatMath.getPercentHP($scope.playerCurrentHP, $scope.playerMaxHP);
         $scope.playerHealthBar.width = $scope.playerPercentHP+"%";
@@ -306,24 +331,23 @@ app.controller('combatController', function($scope, $location, $timeout, monster
 
   $scope.enemySpecial = function(enemyName) {
     if (enemyName === "Slime") {
-      $scope.playerPower = Math.max(($scope.playerMaxPower-1), $scope.playerPower-1);
-      $scope.combatLog = "The "+$scope.enemyName+" lowers your attack power for a turn!";
+      $scope.playerPower = Math.max(($scope.playerMaxSpecialPower-1), $scope.playerSpecialPower-1);
+      $scope.combatLog = "The "+$scope.enemyName+" lowers your devastate power for a turn!";
       $scope.turnCountSpecial = $scope.turnCount +1;
     }
     if (enemyName === "Dino") {
       $scope.playerResistance = Math.max(($scope.playerMaxResistance-1), $scope.playerResistance-1);
-      $scope.combatLog = "The "+$scope.enemyName+" lowers your resistance for a turn!";
+      $scope.combatLog = "The "+$scope.enemyName+" lowers your defence for a turn!";
       $scope.turnCountSpecial = $scope.turnCount +1;
     }
     if (enemyName === "Reptile") {
-      $scope.playerSpecialPower = Math.max(($scope.playerMaxSpecialPower-1), $scope.playerSpecialPower-1);
-      $scope.combatLog = "The "+$scope.enemyName+" lowers your special power for a turn!";
+      $scope.playerSpecialPower = Math.max(($scope.playerMaxPower-1), $scope.playerPower-1);
+      $scope.combatLog = "The "+$scope.enemyName+" lowers your attack power for a turn!";
       $scope.turnCountSpecial = $scope.turnCount +1;
     }
   }
 
   $scope.enemySpecialResolve = function(enemyName) {
-    console.log($scope.turnCountSpecial);
     if ($scope.turnCount == $scope.turnCountSpecial) {
       if (enemyName === "Slime") {
         $scope.playerPower += 1;
@@ -343,35 +367,119 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   $scope.playerAnimate = function(x) {
     if (x === 1) {
       $scope.playerImage = "img/char/warrior/attack.gif";
+      $scope.sound = soundHandler.getSound("slash");
+      soundHandler.playSound("slash");
       $timeout(function() { 
         $scope.playerImage = "img/char/warrior/idle.gif";
       }, 1200);
     }
     if (x === 2) {
       $scope.playerImage = "img/char/warrior/guard.gif";
+      $scope.sound = soundHandler.getSound("guard");
+      soundHandler.playSound("guard");
       $timeout(function() { 
         $scope.playerImage = "img/char/warrior/idle.gif";
       }, 1100);
     }
+    if (x === 3) {
+      $scope.playerImage = "img/char/warrior/attack.gif";
+      $scope.sound = soundHandler.getSound("devastate");
+      soundHandler.playSound("devastate");
+      $timeout(function() { 
+        $scope.playerImage = "img/char/warrior/idle.gif";
+      }, 1200);
+      $timeout(function() { 
+        $scope.playerSpecialState = {
+          "display" : ""
+        }
+      }, 600);
+      $timeout(function() { 
+        $scope.playerSpecialState = {
+          "display" : "none"
+        }
+      }, 900);
+    }
   }
 
   $scope.enemyAnimate= function(x, animation) {
-    if (x === 0) {
-      $scope.enemyImage = monsterList.getEnemyImage($scope.enemyNumber, "attack");
+    if (x === 0 && animation == "attack") {
+      $scope.enemyImage = monsterList.getEnemyImage(x, "attack");
+      $scope.reaction = soundHandler.getSound("slime1");
+      soundHandler.playSound("slime1");
       $timeout(function() { 
-        $scope.enemyImage = monsterList.getEnemyImage($scope.enemyNumber, "idle");
+        $scope.enemyImage = monsterList.getEnemyImage(x, "idle");
       }, 800);
     }
-    if (x === 1) {
-      $scope.enemyImage = monsterList.getEnemyImage($scope.enemyNumber, "attack");
+    if (x === 0 && animation == "special") {
+      $scope.enemyImage = monsterList.getEnemyImage(x, "special");
+      $scope.reaction = soundHandler.getSound("slime2");
+      soundHandler.playSound("slime2");
       $timeout(function() { 
-        $scope.enemyImage = monsterList.getEnemyImage($scope.enemyNumber, "idle");
+        $scope.enemyImage = monsterList.getEnemyImage(x, "idle");
+      }, 1500);
+      $timeout(function() { 
+        $scope.enemySpecialState = {
+          "display" : ""
+        }
+      }, 900);
+      $timeout(function() { 
+        $scope.enemySpecialState = {
+          "display" : "none"
+        }
+      }, 1300);
+    }
+
+    if (x === 1 && animation == "attack") {
+      $scope.enemyImage = monsterList.getEnemyImage(x, "attack");
+      $scope.reaction = soundHandler.getSound("dino1");
+      soundHandler.playSound("dino1");
+      $timeout(function() { 
+        $scope.enemyImage = monsterList.getEnemyImage(x, "idle");
       }, 1200);
     }
-    if (x === 2) {
-      $scope.enemyImage = monsterList.getEnemyImage($scope.enemyNumber, "attack");
+    if (x === 1 && animation == "special") {
+      $scope.enemyImage = monsterList.getEnemyImage(x, "special");
+      $scope.reaction = soundHandler.getSound("dino2");
+      soundHandler.playSound("dino2");
       $timeout(function() { 
-        $scope.enemyImage = monsterList.getEnemyImage($scope.enemyNumber, "idle");
+        $scope.enemyImage = monsterList.getEnemyImage(x, "idle");
+      }, 900);
+      $timeout(function() { 
+        $scope.enemySpecialState = {
+          "display" : ""
+        }
+      }, 600);
+      $timeout(function() { 
+        $scope.enemySpecialState = {
+          "display" : "none"
+        }
+      }, 1100);
+    }
+
+    if (x === 2 && animation == "attack") {
+      $scope.enemyImage = monsterList.getEnemyImage(x, "attack");
+      $scope.reaction = soundHandler.getSound("reptile1");
+      soundHandler.playSound("reptile1");
+      $timeout(function() { 
+        $scope.enemyImage = monsterList.getEnemyImage(x, "idle");
+      }, 800);
+    }
+    if (x === 2 && animation == "special") {
+      $scope.enemyImage = monsterList.getEnemyImage(x, "special");
+      $scope.reaction = soundHandler.getSound("reptile2");
+      soundHandler.playSound("reptile2");
+      $timeout(function() { 
+        $scope.enemyImage = monsterList.getEnemyImage(x, "idle");
+      }, 600);
+      $timeout(function() { 
+        $scope.enemySpecialState = {
+          "display" : ""
+        }
+      }, 400);
+      $timeout(function() { 
+        $scope.enemySpecialState = {
+          "display" : "none"
+        }
       }, 800);
     }
   }
@@ -383,12 +491,29 @@ app.controller('combatController', function($scope, $location, $timeout, monster
         $scope.buttonLock = true;
         $scope.combatLog = "The "+$scope.enemyName+" is dead!";
         $scope.characterQuote = "Victory!";
+        $scope.enemyImage = "";
+        $scope.enemyImageOverlay = "img/fx/1filter.gif";
+        $scope.playerSpecialState = {
+          "display" : ""
+        }
+        music.pause();
+        sound.volume = 0.1;
+        $scope.sound = soundHandler.getSound("victory");
+        soundHandler.playSound("victory");
         $scope.playerVictory();
       }
       if ($scope.playerAlive === false) {
         $scope.buttonLock = true; 
         $scope.combatLog = "You are dead, oh dear!";
         $scope.characterQuote = "Urgh...";
+        $scope.playerImage = "";
+        $scope.playerImageOverlay = "img/fx/1filter.gif";
+        $scope.enemySpecialState = {
+          "display" : ""
+        }
+        music.pause();
+        $scope.sound = soundHandler.getSound("death");
+        soundHandler.playSound("death");
         $scope.playerDead();
       }
     }, 2000);
@@ -425,5 +550,32 @@ app.controller('combatController', function($scope, $location, $timeout, monster
       $scope.playerXp,
       $scope.playerLevel
     );
+  }
+
+  // Conditions for making the menu arrow appear
+  $scope.arrowStateOn = function(x) {
+    soundHandler.playSound("menu");
+    if (x === 1){
+      $scope.arrow1State.display = "";
+    }
+    if (x === 2){
+      $scope.arrow2State.display = "";
+    }
+    if (x === 3){
+      $scope.arrow3State.display = "";
+    }
+  }
+
+  // Conditions for making the menu arrows disappear
+  $scope.arrowStateOff = function(x) {
+    if (x === 1){
+      $scope.arrow1State.display = "none";
+    }
+    if (x === 2){
+      $scope.arrow2State.display = "none";
+    }
+    if (x === 3){
+      $scope.arrow3State.display = "none";
+    }
   }
 });
