@@ -38,20 +38,22 @@
       </table>
 
       <img class="img-fluid arrow" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="arrow1State" src="img/hud/arrow-right.png">
-      <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" style="{{buttonState}}" ng-click="playerAttack()" src="img/hud/attack.png">
-      <p class="hudtext pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" style="{{buttonState}}" ng-click="playerAttack()">Attack</p><br>
+      <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="buttonState" ng-click="playerAttack()" src="img/hud/attack.png">
+      <p class="hudtext pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="buttonState" ng-click="playerAttack()">Attack</p><br>
 
       <img class="img-fluid arrow" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="arrow2State" src="img/hud/arrow-right.png">
-      <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" style="{{buttonState}}" ng-click="playerDefend()" src="img/hud/defend.png">
-      <p class="hudtext pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" style="{{buttonState}}" ng-click="playerDefend()">Defend</p><br>
+      <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="buttonState" ng-click="playerDefend()" src="img/hud/defend.png">
+      <p class="hudtext pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="buttonState" ng-click="playerDefend()">Defend</p><br>
 
       <img class="img-fluid arrow" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="arrow3State" src="img/hud/arrow-right.png">
-      <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" style="{{buttonState}}" ng-click="playerSpecial()"src="img/hud/special.png">
-      <p class="hudtext pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" style="{{buttonState}}" ng-click="playerSpecial()">Devastate (3mp)</p>
+      <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="buttonState" ng-click="playerSpecial()"src="img/hud/special.png">
+      <p class="hudtext pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="buttonState" ng-click="playerSpecial()">Devastate (3mp)</p>
     </div>
   <div class="col-sm-8 spritecontainer">
-    <img class="float-left" id= "playerimage" src={{playerImage}}>
-    <img class="float-right" id= "enemyimage" src={{enemyImage}}>
+    <img class="float-left flip" id="playerimage" src={{playerImage}}>
+    <img class="float-right" id="playerimageoverlay" ng-style="enemySpecialState" src={{playerImageOverlay}}>
+    <img class="float-right flip" id="enemyimage" src={{enemyImage}}>
+    <img class="float-right" id="enemyimageoverlay" ng-style="playerSpecialState" src={{enemyImageOverlay}}>
 </div>
 </div>
 
@@ -66,42 +68,17 @@
   <div class="col-sm-3">
     <br>
     <div class="btn-group">
-      <button type="button" class="btn btn-light" onclick="playMusic()"></span>Vol</button>
-      <button type="button" class="btn btn-light" onclick="volDown()"></span>D</button>
-      <button type="button" class="btn btn-light" onclick="volUp()"></span>U</button>
+      <button type="button" class="btn btn-light" id="musicbutton" ng-click="pauseMusic()"></span>Music</button>
+      <button type="button" class="btn btn-light" id="soundbutton" ng-click="pauseSound()"></span>Sound</button>
       </div>
-    <div ng-controller="updateController">
-      <button class="btn btn-light disabled" style="width: 100px" ng-click="playerUpdate()">Next</button>
-    </div>
+    <button ng-controller="updateController" class="btn btn-light disabled" style="width: 100px" ng-click="playerUpdate()">Next</button>
   </div>
 </div>
 
-<audio id="music" src="img/music/theme-1.ogg"></audio>
-
-<script>
-var theme = document.getElementById("music");
-theme.volume = 0.1;
-theme.loop = true;
-theme.autoplay = true; 
-var play = true;
-
-function playMusic() {
-  return theme.paused ? theme.play() : theme.pause();
-};
-
-function volUp() {
-  if (theme.volume < 1) {
-    theme.volume+=0.05;
-  }
-};
-
-function volDown() {
-  if (theme.volume > 0) {
-    theme.volume-=0.05;
-  }
-};
-
-</script>
+<audio id="music" src={{music}}></audio>
+<audio id="sound" src={{sound}}></audio>
+<audio id="reaction" src={{reaction}}></audio>
+<audio id="menu" src={{menu}}></audio>
 
 <!-- <script>
     document.onkeydown = function(evt) {
@@ -110,7 +87,6 @@ function volDown() {
         
       }
     };
-  
 </script> -->
 
 <!-- <button class={{buttonState}} style="width: 100px" ng-click="playerAttack()">Attack</button><br><br>
