@@ -99,6 +99,14 @@ p, a, td, button, form, input {
     height: 25vw;
 }
 
+/* .lootcontainer {
+    background: url('../img/backgrounds/1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 25vw;
+} */
+
 .spritecontainer img {
     width: 15vw;
     height: auto;
