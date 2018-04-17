@@ -1,6 +1,6 @@
 app.service('playerStats', function() {
-    
-        // Initial values:
+
+    // Initial values:
     var inUsername = "",
         inHp = 15,
         inMaxHp = 15,
@@ -15,107 +15,115 @@ app.service('playerStats', function() {
         inLevel = 1,
         inMoney = 0;
 
-    var username = inUsername,
-        hp = inHp,
-        maxhp = inMaxHp,
-        mp = inMp,
-        maxmp = inMaxMp,
-        power = inPower,
-        resistance = inResistance,
-        accuracy = inAccuracy,
-        insight = inInsight,
-        specialpower = inSpecialPower,
-        xp = inXp,
-        level = inLevel,
-        money = inMoney;
+    var player = {
+        username: inUsername,
+        hp: inHp,
+        maxhp: inMaxHp,
+        mp: inMp,
+        maxmp: inMaxMp,
+        power: inPower,
+        resistance: inResistance,
+        accuracy: inAccuracy,
+        insight: inInsight,
+        specialpower: inSpecialPower,
+        xp: inXp,
+        level: inLevel,
+        money: inMoney
+    };
 
     this.saveReset = function() {
-        hp = inHp,
-        maxhp = inMaxHp,
-        mp = inMp,
-        maxmp = inMaxMp,
-        power = inPower,
-        resistance = inResistance,
-        accuracy = inAccuracy,
-        insight = inInsight,
-        specialpower = inSpecialPower,
-        xp = inXp,
-        level = inLevel,
-        money = inMoney
+        player.hp = inHp,
+        player.maxhp = inMaxHp,
+        player.mp = inMp,
+        player.maxmp = inMaxMp,
+        player.power = inPower,
+        player.resistance = inResistance,
+        player.accuracy = inAccuracy,
+        player.insight = inInsight,
+        player.specialpower = inSpecialPower,
+        player.xp = inXp,
+        player.level = inLevel,
+        player.money = inMoney
     }
 
     this.saveUsername = function(dbusername, dbhp, dbmhp, dbmp, dbmmp, dbpow, dbres, dbacc, dbins, dbspe, dbxp, dblvl, dbmon) {
-        username = dbusername,
-        hp = dbhp,
-        maxhp = dbmhp,
-        mp = mp,
-        maxmp = dbmmp,
-        power = dbpow,
-        resistance = dbres,
-        accuracy = dbacc,
-        insight = dbins,
-        specialpower = dbspe,
-        xp = dbxp,
-        level = dblvl,
-        money = dbmon
+        player.username = dbusername,
+        player.hp = dbhp,
+        player.maxhp = dbmhp,
+        player.mp = dbmp,
+        player.maxmp = dbmmp,
+        player.power = dbpow,
+        player.resistance = dbres,
+        player.accuracy = dbacc,
+        player.insight = dbins,
+        player.specialpower = dbspe,
+        player.xp = dbxp,
+        player.level = dblvl,
+        player.money = dbmon
     }
 
     this.saveCombatUpdate = function(cHp, cMp, cXp, cLvl) {
-        hp = cHp,
-        mp = cMp,
-        xp = cXp,
-        level = cLvl
+        player.hp = cHp,
+        player.mp = cMp,
+        player.xp = cXp,
+        player.level = cLvl
+    }
+
+    this.saveLootUpdate = function(lXp, lLvl, lMoney) {
+        player.xp = lXp,
+        player.level = lLvl,
+        player.money = lMoney
     }
 
     this.getUsername = function() {
-        return username;
+        return player.username;
     }
 
     this.getHp = function() {
-        return hp;
+        return player.hp;
     }
 
     this.getMaxHp = function() {
-        return maxhp;
+        return player.maxhp;
     }
 
     this.getMp = function() {
-        return mp;
+        return player.mp;
     }
 
     this.getMaxMp = function() {
-        return maxmp;
+        return player.maxmp;
     }
 
     this.getPower = function() {
-        return power;
+        return player.power;
     }
 
     this.getResistance = function() {
-        return resistance;
+        return player.resistance;
     }
 
     this.getAccuracy = function() {
-        return accuracy;
+        return player.accuracy;
     }
 
     this.getInsight = function() {
-        return insight;
+        return player.insight;
     }
 
     this.getSpecialPower = function() {
-        return specialpower;
+        return player.specialpower;
     }
 
     this.getXp = function() {
-        return xp;
+        return player.xp;
     }
 
     this.getLevel = function() {
-        return level;
+        return player.level;
     }
 
     this.getMoney = function() {
-        return money;
+        return player.money;
     }
 });
