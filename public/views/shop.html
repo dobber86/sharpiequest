@@ -1,8 +1,71 @@
-<br>
+<div class="row healthbars">
+  <div class="col-sm-4 centered">
+    <p>You are in the Shop.</p><br>
+    <p>You can buy stuff here.</p>
+  </div>
+  <div class="col-sm-4">
+    <p>{{playerName}}</p>
+    <div class="progress statbar">
+        <div class="progress-bar bg-danger" ng-style="playerHealthBar"><p>{{playerCurrentHP}}</p></div>
+    </div>
+    <div class="progress">
+        <div class="progress-bar" ng-style="playerManaBar"><p>{{playerCurrentMP}}</p></div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <p>Gold:</p>
+    <p>{{playerMoney}}</p>
+  </div>
+  <div class="col-sm-2">
+      <p>Xp:</p>
+      <p>{{playerXp}}</p>
+    </div>
+</div>
 
 <div class="row">
-  <div class="col-sm-12">
-    <p>{{playerName}}</p>
-    <h1>The Shop</h1>
+  <div class="col-sm-4">
+    <table class="table table-sm nomarginbottom noborder">
+      <tbody>
+        <tr>
+          <td>Pwr: {{playerPower}}</td>
+          <td>Spc: {{playerSpecialPower}}</td>
+          <td>Def: {{playerResistance}}</td>
+        </tr>
+        <tr>
+          <td>Acc: {{playerAccuracy}}</td>
+          <td>Ins: {{playerInsight}}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <img class="img-fluid arrow" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="arrow1State" src="img/hud/arrow-right.png">
+    <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" style="{{buttonState}}" ng-click="playerAttack()" src="img/hud/attack.png">
+    <p class="hudtext pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" style="{{buttonState}}" ng-click="playerAttack()">Attack</p><br>
+
+    <img class="img-fluid arrow" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="arrow2State" src="img/hud/arrow-right.png">
+    <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" style="{{buttonState}}" ng-click="playerDefend()" src="img/hud/defend.png">
+    <p class="hudtext pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" style="{{buttonState}}" ng-click="playerDefend()">Defend</p><br>
+
+    <img class="img-fluid arrow" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="arrow3State" src="img/hud/arrow-right.png">
+    <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" style="{{buttonState}}" ng-click="playerSpecial()"src="img/hud/special.png">
+    <p class="hudtext pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" style="{{buttonState}}" ng-click="playerSpecial()">Devastate (3mp)</p>
+  </div>
+  <div class="col-sm-8 spritecontainer">
+    <img class="float-left" id= "playerimage" src={{playerImage}}>
+  </div>
+</div>
+
+<div class="row combatlog">
+  <div class="col-sm-2">
+    <img class="img-fluid centeredimg" src="img/char/warrior/faceset.png">
+  </div>
+  <div class="col-sm-7">
+    <p>This place is a scam!</p>
+  </div>
+  <div class="col-sm-3">
+    <br>
+    <div>
+      <button class="btn btn-light" style="width: 100px" ng-click="toCombat();">Continue</button>
+    </div>
   </div>
 </div>

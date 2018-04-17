@@ -18,4 +18,4 @@ create table players (
   money int(3)
 );
 
-alter table players add column money int(3);
+delete from players where id between 60 and 68;

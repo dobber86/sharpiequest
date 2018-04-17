@@ -168,7 +168,3 @@ app.post('/delete', function (req, res) {
     });
     connection.end();
 });
-
-app.get('/', function(req, res) {
-    res.send('Hoi, je route provider werkt niet.');
-});

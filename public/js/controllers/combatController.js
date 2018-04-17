@@ -409,7 +409,7 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   }
   
   $scope.playerVictory = function() {
-    $scope.playerLevel += 1;
+    
     playerStats.saveCombatUpdate(
       $scope.playerCurrentHP,
       $scope.playerCurrentMP,

@@ -8,9 +8,9 @@ app.controller('loginController',  function($scope, $location, $http, playerStat
     $scope.doLogin = function () {
         console.log("in login");
         if ($scope.login.username === "") {
-            $scope.loginPlayer = "No username entered. Everybody has a name.";
+            $scope.loginWrong = "No username entered. Everybody has a name.";
         } else if ($scope.login.password === "") {
-            $scope.loginPlayer = "No password entered.";
+            $scope.loginWrong = "No password entered.";
         } else {
             $http.post('/fetch', angular.toJson($scope.login))
             .then(function (response) {
@@ -36,7 +36,7 @@ app.controller('loginController',  function($scope, $location, $http, playerStat
                 
             })
             .catch(function(response) {
-                console.log("Terugweg fout invoer");
+                console.log("Terugweg fout invoer" + response);
                 $scope.loginWrong = "Wrong username or password. Try again.";
             })
             
