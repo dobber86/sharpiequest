@@ -2,16 +2,52 @@
 
 <div class="row">
   <div class="col-sm-12">
-    <p>{{playerName}}, you earned some loot!</p>
+    <!-- <p>{{playerName}}, you earned some loot!</p> -->
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm-2">
+  
   </div>
+
   <div class="col-sm-2">
-    <img class="float-left" id= "chestimage" src={{chestImage}}>
+      <table class="table table-sm nomarginbottom noborder">
+        <tbody>
+          <tr>
+            <td>+ {{lootXp}} Xp</td>
+          </tr>
+          <tr>
+            <td>+ {{lootMoney}} Gold</td>
+          </tr>
+        </tbody>
+      </table>
   </div>
-  <div class="col-sm-8">
+  
+  <div class="col-sm-5 lootcontainer">
+    <img class="float-left" id= "chestimage" src={{chestImage}}>
+    <img class="float-right" src="img/char/warrior/idle.gif">
+  </div>
+  
+  
+  <div class="col-sm-3">
+  
+  </div>
+  
+
+</div>
+
+<div class="row combatlog">
+  <div class="col-sm-2">
+    <img class="img-fluid centeredimg" src="img/char/warrior/faceset.png">
+  </div>
+  <div class="col-sm-7">
+    <p>Nice! Some loot for {{ playerName }}</p>
+  </div>
+  <div class="col-sm-3">
+    <br>
+    <div>
+      <button class="btn btn-light" style="width: 100px" ng-click="toShop();">Shop</button>
+    </div>
   </div>
 </div>
