@@ -11,36 +11,32 @@ app.service('monsterList', function() {
         {idle: "img/monster/reptile/idle.gif", attack: "img/monster/reptile/attack.gif", special: "img/monster/reptile/guard.gif", hit:"img/monster/reptile/hit.gif"}
     ];
 
-    this.getEnemyName=function(x){
-        return enemy[x].name;
+    var playerImageOverlay = [
+        {fx1: "img/fx/14filter.gif"},
+        {fx1: "img/fx/13filter.gif"},
+        {fx1: "img/fx/2filter.gif"},
+        {fx1: "img/fx/1filter.gif"}   ];
+
+    this.getEnemy=function(x) {
+        return enemy[x];
     }
 
-    this.getEnemyHP=function(x){
-        return enemy[x].maxHP;
-    }
-
-    this.getEnemyPower=function(x){
-        return enemy[x].power;
-    }
-
-    this.getEnemySpecialPower=function(x){
-        return enemy[x].specialPower;
-    }
-
-    this.getEnemyAccuracy=function(x){
-        return enemy[x].accuracy;
-    }
-
-    this.getEnemyResistance=function(x){
-        return enemy[x].resistance;
-    }
-
-    this.getEnemyImage=function(x, animation){
+    this.getEnemyImage=function(x, animation) {
         if (animation === "idle") {
             return enemyImage[x].idle;
         }
         if (animation === "attack") {
             return enemyImage[x].attack;
         }
+        if (animation === "special") {
+            return enemyImage[x].special;
+        }
+        if (animation === "hit") {
+            return enemyImage[x].hit;
+        }
+    }
+
+    this.getPlayerImageOverlay=function(x) {
+        return playerImageOverlay[x].fx1;
     }
 });
