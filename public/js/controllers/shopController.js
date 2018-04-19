@@ -270,9 +270,9 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
     
     // Sound button click
     $scope.pauseSound = function() { 
-        sound.volume = soundHandler.pauseSound();
-        reaction.volume = soundHandler.pauseSound();
-        menu.volume = soundHandler.pauseSound();
+        sound.volume = soundHandler.pauseSound(sound.volume);
+        reaction.volume = soundHandler.pauseSound(reaction.volume);
+        menu.volume = soundHandler.pauseSound(menu.volume);
         sbutton.classList.toggle("btn-light");
         sbutton.classList.toggle("btn-danger");
         if (soundHandler.getSoundOn()) {
