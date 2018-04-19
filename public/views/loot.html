@@ -1,53 +1,83 @@
-<br>
+<div class="row healthbars">
+    <div class="col-sm-4 centered">
+      <p>You are victorious!</p>
+      <p>Well done!</p><br>
+      <p>Take your reward.</p>
+    </div>
+    <div class="col-sm-4">
+      <p>{{playerName}}</p>
+      <div class="progress statbar">
+          <div class="progress-bar bg-danger" ng-style="playerHealthBar"><p>{{playerCurrentHP}}</p></div>
+      </div>
+      <div class="progress">
+          <div class="progress-bar" ng-style="playerManaBar"><p>{{playerCurrentMP}}</p></div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <p>{{enemyName}}</p>
+      <div class="progress statbar">
+          <div class="progress-bar bg-danger" style="width: 0%"><p>0</p></div>
+      </div>
+      <div class="progress">
+          <div class="progress-bar bg-dark" style="width: 100%"><p>"Urgh..."</p></div>
+      </div>
+    </div>
+  </div>
 
 <div class="row">
-  <div class="col-sm-12">
-    <!-- <p>{{playerName}}, you earned some loot!</p> -->
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-2">
-  
-  </div>
-
-  <div class="col-sm-2">
+  <div class="col-sm-4">
       <table class="table table-sm nomarginbottom noborder">
         <tbody>
           <tr>
-            <td>+ {{lootXp}} Xp</td>
+            <td>Pwr: {{playerPower}}</td>
+            <td>Spc: {{playerSpecialPower}}</td>
+            <td>Def: {{playerResistance}}</td>
           </tr>
           <tr>
-            <td>+ {{lootMoney}} Gold</td>
+            <td>Acc: {{playerAccuracy}}</td>
+            <td>Ins: {{playerInsight}}</td>
           </tr>
         </tbody>
       </table>
-  </div>
-  
-  <div class="col-sm-5 lootcontainer">
-    <img class="float-left" id= "chestimage" src={{chestImage}}>
-    <img class="float-right" src="img/char/warrior/idle.gif">
-  </div>
-  
-  
-  <div class="col-sm-3">
-  
-  </div>
-  
+      <br>
+      <table class="table table-sm nomarginbottom noborder">
+          <tbody>
+            <tr>
+              <td><h5>You gain:</h5></td>
+            </tr>
+            <tr>
+              <td><h5>+ {{lootXp}} Xp</h5></td>
+            </tr>
+            <tr>
+              <td><h5>+ {{lootMoney}} Gold</h5></td>
+            </tr>
+          </tbody>
+        </table>
+     </div>
+  <div class="col-sm-8 spritecontainer" ng-style="backgroundState">
+    <img class="float-left flip" id="playerimage" src={{playerImage}}>
+    <img class="float-right flip" id="enemyimage" src={{chestImage}}>
+</div>
+</div>
 
 </div>
 
 <div class="row combatlog">
-  <div class="col-sm-2">
-    <img class="img-fluid centeredimg" src="img/char/warrior/faceset.png">
-  </div>
-  <div class="col-sm-7">
-    <p>Nice! Some loot for {{ playerName }}</p>
-  </div>
-  <div class="col-sm-3">
-    <br>
-    <div>
-      <button class="btn btn-light" style="width: 100px" ng-click="toShop();">Shop</button>
+    <div class="col-sm-2">
+      <img class="img-fluid centeredimg" src="img/char/warrior/faceset.png">
     </div>
-  </div>
+    <div class="col-sm-7">
+      <p>The {{enemyName}} is dead!</p>
+      <p>"That's the good stuff!"</p>
+    </div>
+    <div class="col-sm-3 centered">
+      <br>
+      <div class="btn-group">
+        <button type="button" class="btn btn-light" id="musicbutton" ng-click="pauseMusic()"></span>Music</button>
+        <button type="button" class="btn btn-light" id="soundbutton" ng-click="pauseSound()"></span>Sound</button>
+      </div>
+        <button class="btn btn-light" style="width: 100px" ng-click="toShop();">Shop</button>
+    </div>
 </div>
+
+<audio id="music" src={{music}}></audio>
