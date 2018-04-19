@@ -111,6 +111,21 @@ p, a, td, button, form, input {
     margin: -50px;
 }
 
+.shopcontainer {
+    background: url('../img/backgrounds/shop.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 25vw;
+}
+
+.shopcontainer img {
+    width: 15vw;
+    height: auto;
+    overflow: hidden;
+    margin: -50px;
+}
+
 .logincontainer {
     background: url('../img/backgrounds/4.png');
     background-size: cover;
@@ -130,6 +145,12 @@ p, a, td, button, form, input {
 }
 
 #playerimage {
+    position: absolute;
+    left: 20%;
+    margin-top: 5vw;
+}
+
+#playerimageshop {
     position: absolute;
     left: 20%;
     margin-top: 5vw;
@@ -174,6 +195,17 @@ p, a, td, button, form, input {
     border-style: solid;
     border-width: 3px;
     border-color: #f4eb42;
+    border-radius: 2px;
+    margin-top: 15px;
+    margin-right: 0px;
+}
+
+.hudShop {
+    height: 75px;
+    width: 75px;
+    border-style: solid;
+    border-width: 3px;
+    border-color: #bfbfbf;
     border-radius: 2px;
     margin-top: 15px;
     margin-right: 0px;

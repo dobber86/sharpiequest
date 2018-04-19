@@ -62,7 +62,7 @@ app.controller('lootController',  function($scope, $location, $http, playerStats
 
     //Loot
     $scope.lootXp = $scope.playerLevel;
-    $scope.lootMoney = $scope.playerLevel * 10;
+    $scope.lootMoney = $scope.playerLevel + 10;
     
 
     //Function adding loot to PlayerStat
@@ -79,7 +79,7 @@ app.controller('lootController',  function($scope, $location, $http, playerStats
 
     //Sending loot update to Database
     $scope.playerUpdate = function () {
-        console.log("in loot update");
+        // console.log("in loot update");
 
         $scope.update = {
             username: playerStats.getUsername(),
@@ -99,7 +99,7 @@ app.controller('lootController',  function($scope, $location, $http, playerStats
 
         $http.post('/update', angular.toJson($scope.update))
         .then(function (response) {
-            console.log("Saving loot update");
+            // console.log("Saving loot update");
         });
            
     };

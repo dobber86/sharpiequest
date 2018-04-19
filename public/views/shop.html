@@ -23,35 +23,72 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-4">
+  <div class="col-sm-3">
     <table class="table table-sm nomarginbottom noborder">
       <tbody>
         <tr>
           <td>Pwr: {{playerPower}}</td>
           <td>Spc: {{playerSpecialPower}}</td>
-          <td>Def: {{playerResistance}}</td>
-        </tr>
-        <tr>
-          <td>Acc: {{playerAccuracy}}</td>
-          <td>Ins: {{playerInsight}}</td>
         </tr>
       </tbody>
     </table>
   
-    <img class="img-fluid arrow" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="arrow1State" src="img/hud/arrow-right.png">
-    <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" style="{{buttonState}}" ng-click="playerAttack()" src="img/hud/attack.png">
-    <p class="hudtext pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" style="{{buttonState}}" ng-click="playerAttack()">Attack</p><br>
+    <p><img class="img-fluid arrow" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="arrow1State" src="img/hud/arrow-right.png">
+    <img class="img-fluid hudShop pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="buttonState" ng-click="playerBuyHp()" src="img/items/health.png"></p>
+    <p>+{{potionHp}} hp ({{pricePotionHp}} gold)</p>
 
-    <img class="img-fluid arrow" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="arrow2State" src="img/hud/arrow-right.png">
-    <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" style="{{buttonState}}" ng-click="playerDefend()" src="img/hud/defend.png">
-    <p class="hudtext pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" style="{{buttonState}}" ng-click="playerDefend()">Defend</p><br>
+    <p><img class="img-fluid arrow" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="arrow2State" src="img/hud/arrow-right.png">
+    <img class="img-fluid hudShop pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="buttonState" ng-click="playerBuyMp()" src="img/items/mana.png"></p>
+    <p>+{{potionMp}} mp ({{pricePotionMp}} gold)</p>
 
-    <img class="img-fluid arrow" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="arrow3State" src="img/hud/arrow-right.png">
-    <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" style="{{buttonState}}" ng-click="playerSpecial()"src="img/hud/special.png">
-    <p class="hudtext pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" style="{{buttonState}}" ng-click="playerSpecial()">Devastate (3mp)</p>
+    <p><img class="img-fluid arrow" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="arrow3State" src="img/hud/arrow-right.png">
+    <img class="img-fluid hudShop pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="buttonState" ng-click="playerBuyMaxHp()"src="img/items/maxhp.png"></p>
+    <p>+{{itemMaxHp}} max hp ({{priceMaxHp}} xp)</p>
   </div>
-  <div class="col-sm-8 spritecontainer">
-    <img class="float-left" id= "playerimage" src={{playerImage}}>
+  <div class="col-sm-3">
+    <table class="table table-sm nomarginbottom noborder">
+      <tbody>
+        <tr>
+          <td>Def: {{playerResistance}}</td>
+          <td>Acc: {{playerAccuracy}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><img class="img-fluid arrow" ng-mouseover="arrowStateOn(4)" ng-mouseleave="arrowStateOff(4)" ng-style="arrow4State" src="img/hud/arrow-right.png">
+    <img class="img-fluid hudShop pointer" ng-mouseover="arrowStateOn(4)" ng-mouseleave="arrowStateOff(4)" ng-style="buttonState" ng-click="playerBuyMaxMp()" src="img/items/maxmp.png"></p>
+    <p>+{{itemMaxMp}} max mp ({{priceMaxMp}} xp)</p>
+
+    <p><img class="img-fluid arrow" ng-mouseover="arrowStateOn(5)" ng-mouseleave="arrowStateOff(5)" ng-style="arrow5State" src="img/hud/arrow-right.png">
+    <img class="img-fluid hudShop pointer" ng-mouseover="arrowStateOn(5)" ng-mouseleave="arrowStateOff(5)" ng-style="buttonState" ng-click="playerBuyPower()" src="img/items/power.png"></p>
+    <p>+{{itemPower}} Pwr ({{pricePower}} xp)</p>
+
+    <p><img class="img-fluid arrow" ng-mouseover="arrowStateOn(6)" ng-mouseleave="arrowStateOff(6)" ng-style="arrow6State" src="img/hud/arrow-right.png">
+    <img class="img-fluid hudShop pointer" ng-mouseover="arrowStateOn(6)" ng-mouseleave="arrowStateOff(6)" ng-style="buttonState" ng-click="playerBuySpecial()"src="img/items/special.png"></p>
+    <p>+{{itemSpecial}} Spc ({{priceSpecial}} xp)</p>
+  </div>
+  <div class="col-sm-3">
+    <table class="table table-sm nomarginbottom noborder">
+      <tbody>
+        <tr>
+          <td>Ins: {{playerInsight}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p><img class="img-fluid arrow" ng-mouseover="arrowStateOn(7)" ng-mouseleave="arrowStateOff(7)" ng-style="arrow7State" src="img/hud/arrow-right.png">
+    <img class="img-fluid hudShop pointer" ng-mouseover="arrowStateOn(7)" ng-mouseleave="arrowStateOff(7)" ng-style="buttonState" ng-click="playerBuyResistance()" src="img/items/defence.png"></p>
+    <p>+{{itemResistance}} Def ({{priceResistance}} xp)</p>
+
+    <p><img class="img-fluid arrow" ng-mouseover="arrowStateOn(8)" ng-mouseleave="arrowStateOff(8)" ng-style="arrow8State" src="img/hud/arrow-right.png">
+    <img class="img-fluid hudShop pointer" ng-mouseover="arrowStateOn(8)" ng-mouseleave="arrowStateOff(8)" ng-style="buttonState" ng-click="playerBuyAccuracy()" src="img/items/accuracy.png"></p>
+    <p>+{{itemAccuracy}} Acc ({{priceAccuracy}} xp)</p>
+
+    <p><img class="img-fluid arrow" ng-mouseover="arrowStateOn(9)" ng-mouseleave="arrowStateOff(9)" ng-style="arrow9State" src="img/hud/arrow-right.png">
+    <img class="img-fluid hudShop pointer" ng-mouseover="arrowStateOn(9)" ng-mouseleave="arrowStateOff(9)" ng-style="buttonState" ng-click="playerBuyInsight()"src="img/items/insight.png"></p>
+    <p>+{{itemInsight}} Ins hp ({{priceInsight}} xp)</p>
+  </div>
+  <div class="col-sm-3 shopcontainer">
+    <img class="float-left" id= "playerimageshop" src={{playerImage}}>
   </div>
 </div>
 
@@ -64,8 +101,15 @@
   </div>
   <div class="col-sm-3">
     <br>
-    <div>
-      <button class="btn btn-light" style="width: 100px" ng-click="toCombat();">Continue</button>
+    <div class="btn-group">
+      <button type="button" class="btn btn-light" id="musicbutton" ng-click="pauseMusic()"></span>Music</button>
+      <button type="button" class="btn btn-light" id="soundbutton" ng-click="pauseSound()"></span>Sound</button>
     </div>
+      <button class="btn btn-light" style="width: 100px" ng-click="toCombat();">Continue</button>
   </div>
 </div>
+
+<audio id="music" src={{music}}></audio>
+<audio id="sound" src={{sound}}></audio>
+<audio id="reaction" src={{reaction}}></audio>
+<audio id="menu" src={{menu}}></audio>

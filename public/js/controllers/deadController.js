@@ -6,7 +6,7 @@ app.controller('deadController',  function($scope, $location, $http, playerStats
     };
 
     $scope.playerReset = function () {
-        console.log("in reset");
+        // console.log("in reset");
         playerStats.saveReset();
 
         $scope.reset = {
@@ -27,7 +27,7 @@ app.controller('deadController',  function($scope, $location, $http, playerStats
 
         $http.post('/update', angular.toJson($scope.reset))
         .then(function (response) {
-            console.log("Saving reset");
+            // console.log("Saving reset");
         });
 
         $location.path('/');
@@ -35,7 +35,7 @@ app.controller('deadController',  function($scope, $location, $http, playerStats
     };
 
     $scope.playerDelete = function () {
-        console.log("in delete");
+        // console.log("in delete");
 
         $scope.delete = {
             username: playerStats.getUsername()
@@ -43,7 +43,7 @@ app.controller('deadController',  function($scope, $location, $http, playerStats
 
         $http.post('/delete', angular.toJson($scope.delete))
         .then(function (response) {
-            console.log("Saving delete");
+            // console.log("Saving delete");
         });
 
         $location.path('/');

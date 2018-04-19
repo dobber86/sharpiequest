@@ -108,19 +108,44 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   reaction.volume = soundHandler.getVolume("sound");
   menu.volume = soundHandler.getVolume("sound");
   music.loop = true;
-  music.autoplay = true;
+  music.autoplay = soundHandler.getMusicOn();
   
+  // Checking state of music button
+  if (!soundHandler.getMusicOn()) {
+    mbutton.classList.toggle("btn-light");
+    mbutton.classList.toggle("btn-danger");
+  }
+
+  // Music button click
   $scope.pauseMusic = function() { 
     soundHandler.pauseMusic();
     mbutton.classList.toggle("btn-light");
     mbutton.classList.toggle("btn-danger");
+    if (soundHandler.getMusicOn()) {
+      soundHandler.saveMusicOn(false);
+    } else {
+      soundHandler.saveMusicOn(true);
+    }
   }
+
+  // Checking state of sound button
+  if (!soundHandler.getSoundOn()) {
+    sbutton.classList.toggle("btn-light");
+    sbutton.classList.toggle("btn-danger");
+  }
+
+  // Sound button click
   $scope.pauseSound = function() { 
     sound.volume = soundHandler.pauseSound(sound.volume);
     reaction.volume = soundHandler.pauseSound(reaction.volume);
     menu.volume = soundHandler.pauseSound(menu.volume);
     sbutton.classList.toggle("btn-light");
-    sbutton.classList.toggle("btn-danger"); 
+    sbutton.classList.toggle("btn-danger");
+    if (soundHandler.getSoundOn()) {
+      soundHandler.saveSoundOn(false);
+    } else {
+      soundHandler.saveSoundOn(true);
+    }
   }
  
   // Combat metadata
