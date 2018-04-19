@@ -46,18 +46,60 @@ app.controller('lootController',  function($scope, $location, $http, playerStats
         "background-position" : "center center"
     }
 
-    $scope.music = "img/music/theme-2.ogg";
+    // Music & sound
+    $scope.music = soundHandler.getMusic("loot");
+    $scope.sound = soundHandler.getSound("slash");
+    $scope.reaction = soundHandler.getSound("slash1");
+    $scope.menu = soundHandler.getSound("menu");
     var music = document.getElementById("music");
+    var sound = document.getElementById("sound");
+    var reaction = document.getElementById("reaction");
+    var menu = document.getElementById("menu");
     var mbutton = document.getElementById("musicbutton");
     var sbutton = document.getElementById("soundbutton");
     music.volume = soundHandler.getVolume("music");
+    sound.volume = soundHandler.getVolume("sound");
+    reaction.volume = soundHandler.getVolume("sound");
+    menu.volume = soundHandler.getVolume("sound");
     music.loop = true;
-    music.autoplay = true;
+    music.autoplay = soundHandler.getMusicOn();
     
+    // Checking state of music button
+    if (!soundHandler.getMusicOn()) {
+        mbutton.classList.toggle("btn-light");
+        mbutton.classList.toggle("btn-danger");
+    }
+
+    // Music button click
     $scope.pauseMusic = function() { 
-      soundHandler.pauseMusic();
-      mbutton.classList.toggle("btn-light");
-      mbutton.classList.toggle("btn-danger");
+        soundHandler.pauseMusic();
+        mbutton.classList.toggle("btn-light");
+        mbutton.classList.toggle("btn-danger");
+        if (soundHandler.getMusicOn()) {
+            soundHandler.saveMusicOn(false);
+        } else {
+            soundHandler.saveMusicOn(true);
+        }
+    }
+
+    // Checking state of sound button
+    if (!soundHandler.getSoundOn()) {
+        sbutton.classList.toggle("btn-light");
+        sbutton.classList.toggle("btn-danger");
+    }
+
+    // Sound button click
+    $scope.pauseSound = function() { 
+        sound.volume = soundHandler.pauseSound(sound.volume);
+        reaction.volume = soundHandler.pauseSound(reaction.volume);
+        menu.volume = soundHandler.pauseSound(menu.volume);
+        sbutton.classList.toggle("btn-light");
+        sbutton.classList.toggle("btn-danger");
+        if (soundHandler.getSoundOn()) {
+            soundHandler.saveSoundOn(false);
+        } else {
+            soundHandler.saveSoundOn(true);
+        }
     }
 
     //Loot
