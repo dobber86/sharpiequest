@@ -8,6 +8,15 @@ app.service('combatMath', function() {
   this.getAttack=function(currentHP, attackPower){
     return Math.max(0,currentHP - attackPower);
   }
+  this.getHit=function(playerAccuracy){
+    var benchmark = Math.floor((Math.random() * 100) + 1);
+      if (benchmark < playerAccuracy) {
+        return true;
+      }
+      else {
+        return false;
+      }
+  }
   this.getDefend=function(currentHP, attackPower, defendResistance){
     return Math.max(0,currentHP - (Math.max(0, attackPower - defendResistance)));
   }

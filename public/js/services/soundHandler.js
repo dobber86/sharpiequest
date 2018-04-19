@@ -17,15 +17,50 @@ app.service('soundHandler', function($timeout) {
         {file: "img/sound/28.ogg", timeout: 600}, //dino2
 
         {file: "img/sound/12.ogg", timeout: 250}, //reptile1
-        {file: "img/sound/20.ogg", timeout: 500} //reptile2
+        {file: "img/sound/20.ogg", timeout: 500}, //reptile2
+
+        {file: "img/sound/17.ogg", timeout: 500}, //giant1
+        {file: "img/sound/24.ogg", timeout: 1400} //giant2
     ];
     
-    this.getMusic = function(x) {
+    this.getMusic = function(x, isDark) {
         if (x === 0 || x === 1 || x === 2) {
-            return "img/music/theme-1.ogg";
+            var randomTrack = Math.floor((Math.random() * 2) + 1);
+            if (isDark === false) {
+                if (randomTrack === 1 ) {
+                    musicVolume = 0.1;
+                    return "img/music/theme-1.ogg"
+                }
+                if (randomTrack === 2 ) {
+                    musicVolume = 0.3;
+                    return "img/music/theme-10.ogg"
+                }
+            }
+            if (isDark === true) {
+                if (randomTrack === 1 ) {
+                    musicVolume = 0.2;
+                    return "img/music/theme-6.ogg"
+                }
+                if (randomTrack === 2 ) {
+                    musicVolume = 0.1;
+                    return "img/music/theme-13.ogg"
+                }
+            }
         }
         if (x === 3) {
             return "img/music/final-countdown.mp3";
+        }
+    }
+
+    this.getOutro = function(x) {
+        if (x === 1) {
+            return "img/music/theme-12.ogg"
+        }
+        if (x === 2) {
+            return "img/music/theme-11.ogg"
+        }
+        if (x === 3) {
+            return "img/music/theme-15.ogg"
         }
     }
 
@@ -66,6 +101,12 @@ app.service('soundHandler', function($timeout) {
         }
         if (name === "reptile2") {
             return sounds[11].file;
+        }
+        if (name === "giant1") {
+            return sounds[12].file;
+        }
+        if (name === "giant2") {
+            return sounds[13].file;
         }
     }
 
@@ -113,6 +154,12 @@ app.service('soundHandler', function($timeout) {
         if (name === "reptile2") {
             return  $timeout(function() { reaction.play();  }, sounds[11].timeout);
         }
+        if (name === "giant1") {
+            return  $timeout(function() { reaction.play();  }, sounds[12].timeout);
+        }
+        if (name === "giant2") {
+            return  $timeout(function() { reaction.play();  }, sounds[13].timeout);
+        }
     }
 
     this.getVolume = function(x) {
@@ -128,16 +175,16 @@ app.service('soundHandler', function($timeout) {
         return music.paused ? music.play() : music.pause();
     }
 
-    this.pauseSound = function() {
+    this.pauseSound = function(x) {
         if (!toggle) {
-            if (soundVolume > 0) {
+            if (x > 0) {
                 soundVolume = 0;
                 return soundVolume;
                 toggle = true;
             }
         }
         if (!toggle) {
-            if (soundVolume === 0) {
+            if (x === 0) {
                 soundVolume = 0.3;
                 return soundVolume;
                 toggle = true;

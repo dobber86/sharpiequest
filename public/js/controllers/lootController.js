@@ -1,4 +1,4 @@
-app.controller('lootController',  function($scope, $location, $http, playerStats, combatMath) {
+app.controller('lootController',  function($scope, $location, $http, playerStats, combatMath, monsterList, soundHandler) {
     
     //Refresh case
     $scope.playerName = playerStats.getUsername();
@@ -26,6 +26,39 @@ app.controller('lootController',  function($scope, $location, $http, playerStats
     $scope.playerMoney = playerStats.getMoney();
     $scope.chestImage = "img/loot/Open.gif";
     $scope.playerImage = "img/char/warrior/idle.gif";
+
+    $scope.enemyName = monsterList.getLastEnemy().name;
+
+     // Player bar size
+    $scope.playerHealthBar = {
+        "width" : $scope.playerPercentHP+"%"
+    }
+    $scope.playerManaBar = {
+        "width" : $scope.playerPercentMP+"%"
+    }
+
+    $scope.backgroundNumber = monsterList.getLastBackground();
+
+    $scope.backgroundState = {
+        "background": "url('../img/backgrounds/"+$scope.backgroundNumber+".png')",
+        "background-size" : "cover",
+        "background-repeat" : "no-repeat",
+        "background-position" : "center center"
+    }
+
+    $scope.music = "img/music/theme-2.ogg";
+    var music = document.getElementById("music");
+    var mbutton = document.getElementById("musicbutton");
+    var sbutton = document.getElementById("soundbutton");
+    music.volume = soundHandler.getVolume("music");
+    music.loop = true;
+    music.autoplay = true;
+    
+    $scope.pauseMusic = function() { 
+      soundHandler.pauseMusic();
+      mbutton.classList.toggle("btn-light");
+      mbutton.classList.toggle("btn-danger");
+    }
 
     //Loot
     $scope.lootXp = $scope.playerLevel;
