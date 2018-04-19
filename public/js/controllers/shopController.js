@@ -63,6 +63,7 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
                 $scope.playerMoney -= $scope.pricePotionHp;
                 $scope.playerPercentHP = combatMath.getPercentHP($scope.playerCurrentHP, $scope.playerMaxHP);
                 $scope.playerHealthBar.width = $scope.playerPercentHP+"%";
+                sound.play();
                 $scope.saveShopUpdate();
             } else if ($scope.playerCurrentHP === $scope.playerMaxHP) {
 
@@ -71,6 +72,7 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
                 $scope.playerMoney -= $scope.pricePotionHp;
                 $scope.playerPercentHP = combatMath.getPercentHP($scope.playerCurrentHP, $scope.playerMaxHP);
                 $scope.playerHealthBar.width = $scope.playerPercentHP+"%";
+                sound.play();
                 $scope.saveShopUpdate();
             }
         }
@@ -84,6 +86,7 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
             $scope.playerPercentHP = combatMath.getPercentHP($scope.playerCurrentHP, $scope.playerMaxHP);
             $scope.playerHealthBar.width = $scope.playerPercentHP+"%";
             $scope.playerXp -= $scope.priceMaxHp;
+            sound.play();
             $scope.saveShopUpdate();
         }
     }
@@ -96,6 +99,7 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
                 $scope.playerMoney -= $scope.pricePotionMp;
                 $scope.playerPercentMP = combatMath.getPercentHP($scope.playerCurrentMP, $scope.playerMaxMP);
                 $scope.playerManaBar.width = $scope.playerPercentMP+"%";
+                sound.play();
                 $scope.saveShopUpdate();
             } else if ($scope.playerCurrentMP === $scope.playerMaxMP) {
     
@@ -104,6 +108,7 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
                 $scope.playerMoney -= $scope.pricePotionMp;
                 $scope.playerPercentMP = combatMath.getPercentHP($scope.playerCurrentMP, $scope.playerMaxMP);
                 $scope.playerManaBar.width = $scope.playerPercentMP+"%";
+                sound.play();
                 $scope.saveShopUpdate();
             }
         }
@@ -117,6 +122,7 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
             $scope.playerPercentMP = combatMath.getPercentHP($scope.playerCurrentMP, $scope.playerMaxMP);
             $scope.playerManaBar.width = $scope.playerPercentMP+"%";
             $scope.playerXp -= $scope.priceMaxMp;
+            sound.play();
             $scope.saveShopUpdate();
         }
     }
@@ -126,6 +132,7 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
         if ($scope.playerXp >= $scope.pricePower) {
             $scope.playerPower += $scope.itemPower;
             $scope.playerXp -= $scope.pricePower;
+            sound.play();
             $scope.saveShopUpdate();
         }
     }
@@ -135,6 +142,7 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
         if ($scope.playerXp >= $scope.priceResistance) {
             $scope.playerResistance += $scope.itemResistance;
             $scope.playerXp -= $scope.priceResistance;
+            sound.play();
             $scope.saveShopUpdate();
         }
     }
@@ -145,12 +153,14 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
             if (($scope.playerAccuracy + $scope.itemAccuracy) <= 100) {
                 $scope.playerAccuracy += $scope.itemAccuracy;
                 $scope.playerXp -= $scope.priceAccuracy;
+                sound.play();
                 $scope.saveShopUpdate();
             } else if ($scope.playerAccuracy === 100) {
 
             } else {
                 $scope.playerAccuracy = 100;
                 $scope.playerXp -= $scope.priceAccuracy;
+                sound.play();
                 $scope.saveShopUpdate();
             }
         }
@@ -162,12 +172,14 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
             if (($scope.playerInsight + $scope.itemInsight) <= 100) {
                 $scope.playerInsight += $scope.itemInsight;
                 $scope.playerXp -= $scope.priceInsight;
+                sound.play();
                 $scope.saveShopUpdate();
             } else if ($scope.playerInsight === 100) {
 
             } else {
                 $scope.playerInsight = 100;
                 $scope.playerXp -= $scope.priceInsight;
+                sound.play();
                 $scope.saveShopUpdate();
             }
         }
@@ -178,6 +190,7 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
         if ($scope.playerXp >= $scope.priceSpecial) {
             $scope.playerSpecialPower += $scope.itemSpecial;
             $scope.playerXp -= $scope.priceSpecial;
+            sound.play();
             $scope.saveShopUpdate();
         }
     }
@@ -228,7 +241,7 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
 
     // Music & sound
     $scope.music = soundHandler.getMusic("shop");
-    $scope.sound = soundHandler.getSound("slash");
+    $scope.sound = "img/sound/9.ogg";
     $scope.reaction = soundHandler.getSound("slash1");
     $scope.menu = soundHandler.getSound("menu");
     var music = document.getElementById("music");
@@ -237,7 +250,7 @@ app.controller('shopController',  function($scope, $location, $http, playerStats
     var menu = document.getElementById("menu");
     var mbutton = document.getElementById("musicbutton");
     var sbutton = document.getElementById("soundbutton");
-    music.volume = soundHandler.getVolume("music");
+    music.volume = 0.3;
     sound.volume = soundHandler.getVolume("sound");
     reaction.volume = soundHandler.getVolume("sound");
     menu.volume = soundHandler.getVolume("sound");
