@@ -19,4 +19,3 @@ create table players (
 );
 
 delete from players where id between 60 and 68;
-111
