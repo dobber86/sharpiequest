@@ -6,7 +6,7 @@ app.controller('loginController',  function($scope, $location, $http, playerStat
     },
 
     $scope.doLogin = function () {
-        console.log("in login");
+        // console.log("in login");
         if ($scope.login.username === "") {
             $scope.loginWrong = "No username entered. Everybody has a name.";
         } else if ($scope.login.password === "") {
@@ -14,7 +14,7 @@ app.controller('loginController',  function($scope, $location, $http, playerStat
         } else {
             $http.post('/fetch', angular.toJson($scope.login))
             .then(function (response) {
-                console.log("Fetching: " + response.data[0]);
+                // console.log("Fetching: " + response.data[0]);
                 $scope.loginWrong = "";
                 $scope.loginPlayer = response.data[0];
                 playerStats.saveUsername(
@@ -36,7 +36,7 @@ app.controller('loginController',  function($scope, $location, $http, playerStat
                 
             })
             .catch(function(response) {
-                console.log("Terugweg fout invoer" + response);
+                // console.log("Terugweg fout invoer" + response);
                 $scope.loginWrong = "Wrong username or password. Try again.";
             })
             

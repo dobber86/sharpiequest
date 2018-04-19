@@ -1,7 +1,7 @@
 app.controller('updateController',  function($scope, $location, $http, playerStats) {
     
     $scope.playerUpdate = function () {
-        console.log("in update");
+        // console.log("in update");
 
         $scope.update = {
             username: playerStats.getUsername(),
@@ -22,13 +22,13 @@ app.controller('updateController',  function($scope, $location, $http, playerSta
         if ($scope.update.hp === 0) {
             $http.post('/update', angular.toJson($scope.update))
             .then(function (response) {
-                console.log("Saving update");
+                // console.log("Saving update");
             });
             $location.path('/dead/');
         } else {
             $http.post('/update', angular.toJson($scope.update))
             .then(function (response) {
-                console.log("Saving update");
+                // console.log("Saving update");
             });
             $location.path('/loot/');   
         }    

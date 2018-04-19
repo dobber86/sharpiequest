@@ -18,7 +18,7 @@ app.controller('signinController',  function($scope, $http, playerStats) {
     },
 
     $scope.doSignin = function () {
-        console.log("in signin");
+        // console.log("in signin");
         if ($scope.signin.username === "") {
             $scope.signinResponse = "No username entered. I know, it's difficult.";
         } else if ($scope.signin.password === "") {
@@ -26,11 +26,11 @@ app.controller('signinController',  function($scope, $http, playerStats) {
         } else {
             $http.post('/checkUsername', angular.toJson($scope.signin))
             .then(function (response) {
-                console.log("Checking Username");
+                // console.log("Checking Username");
                 if (response.status == "204") {
                     $http.post('/signin', angular.toJson($scope.signin))
                     .then(function (response) {
-                        console.log("Saving Sign In");
+                        // console.log("Saving Sign In");
                     });
                     $scope.signinResponse = "Signing in succesful. Good job!";
                 } else if (response.status == "200") {
