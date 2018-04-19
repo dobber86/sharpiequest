@@ -1,9 +1,9 @@
 app.service('monsterList', function() {
     var enemy = [
         {name: "Slime", maxHP: 10, power: 2, specialPower: 2, accuracy: 85, resistance: 1},
-        {name: "Dino", maxHP: 15, power: 3, specialPower: 3, accuracy: 85, resistance: 1},
-        {name: "Reptile", maxHP: 20, power: 4, specialPower: 5, accuracy: 85, resistance: 2},
-        {name: "Giant", maxHP: 50, power: 5, specialPower: 10, accuracy: 85, resistance: 5}
+        {name: "Dino", maxHP: 15, power: 2, specialPower: 3, accuracy: 85, resistance: 2},
+        {name: "Reptile", maxHP: 20, power: 3, specialPower: 5, accuracy: 85, resistance: 2},
+        {name: "Giant", maxHP: 25, power: 4, specialPower: 4, accuracy: 85, resistance: 3}
     ];
 
     var lastEnemy = enemy[1];

@@ -67,6 +67,7 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   $scope.playerMoney = playerStats.getMoney();
   $scope.playerImage = "img/char/warrior/idle.gif";
   $scope.playerImageOverlay = monsterList.getPlayerImageOverlay($scope.enemyNumber);
+  $scope.playerImageOverlay2 = "img/fx/1filter.gif";
 
   // Scale enemy statistics
   monsterList.scaleNight($scope.enemyNumber, $scope.levelDark);
@@ -196,6 +197,9 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   $scope.enemySpecialState = {
     "display" : "none"
   }
+  $scope.enemySpecialState2 = {
+    "display" : "none"
+  }
 
   var nextButton = document.getElementById("nextbutton");
 
@@ -264,9 +268,8 @@ app.controller('combatController', function($scope, $location, $timeout, monster
             // Check if enemy is still alive
             if ($scope.enemyCurrentHP === 0) {
               $scope.enemyAlive = false;
+            }
           }
-        }
-    
           else {
             $scope.combatLog = "The "+$scope.enemyName+" defends, but your attack misses!";
           }
@@ -282,10 +285,11 @@ app.controller('combatController', function($scope, $location, $timeout, monster
             if ($scope.enemyCurrentHP === 0) {
               $scope.enemyAlive = false;
             }
-            else {
-              $scope.combatLog = "Your attack missed!";
-            }
-        
+          }
+          else {
+            $scope.combatLog = "Your attack missed!";
+          }
+          
             // If enemy is still alive, counterattack (after a short delay)
             if($scope.enemyAlive) {
               $timeout(function() {
@@ -293,7 +297,6 @@ app.controller('combatController', function($scope, $location, $timeout, monster
               $scope.enemySpecial($scope.enemyName);
               }, 1500);
             }
-          }
         }
 
       // End of turn events
@@ -685,8 +688,8 @@ app.controller('combatController', function($scope, $location, $timeout, monster
         $scope.combatLog = "You are dead, oh dear!";
         $scope.characterQuote = "Urgh...";
         $scope.playerImage = "";
-        $scope.playerImageOverlay = "img/fx/1filter.gif";
-        $scope.enemySpecialState = {
+        $scope.playerImageOverlay2 = "img/fx/1filter.gif";
+        $scope.enemySpecialState2 = {
           "display" : ""
         }
 
@@ -728,7 +731,7 @@ app.controller('combatController', function($scope, $location, $timeout, monster
 
     // Special Giant stuff
     if ($scope.enemyNumber === 3) {
-      if ($scope.turnCount > 3) {
+      if ($scope.turnCount > 10) {
         $scope.enemyPower+=1;
         $scope.enemySpecialPower+=1;
       }
