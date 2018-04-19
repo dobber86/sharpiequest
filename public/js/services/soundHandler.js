@@ -55,6 +55,9 @@ app.service('soundHandler', function($timeout) {
         if (x === "shop") {
             return "img/music/shop.ogg";
         }
+        if (x === "loot") {
+            return "img/music/theme-2.ogg"
+        }
     }
 
     this.getOutro = function(x) {
