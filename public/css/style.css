@@ -5,6 +5,10 @@
    src: url(pixeledenglishfont.ttf);
 }
 
+body {
+    background-color: #f2f2f2;
+}
+
 h1, p {
     margin-bottom: 0;
 }
@@ -12,6 +16,11 @@ h1, p {
 h1 {
     font-family: pixeledenglishfont, Calibri, Arial, Helvetica, sans-serif;
     font-size: 5vw;
+}
+
+h2 {
+    font-family: pixeledenglishfont, Calibri, Arial, Helvetica, sans-serif;
+    font-size: 48px;
 }
 
 h5 {
@@ -83,7 +92,7 @@ p, a, td, button, form, input {
 }
 
 #underline {
-    color: #0000ff;
+    color: #4286f4;
 }
 
 #underline:hover {
@@ -92,37 +101,41 @@ p, a, td, button, form, input {
 }
 
 .spritecontainer {
-    background: url('../img/backgrounds/1.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
     height: 25vw;
 }
-
-/* .lootcontainer {
-    background: url('../img/backgrounds/1.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center center;
-    height: 25vw;
-} */
 
 .spritecontainer img {
     width: 15vw;
     height: auto;
     overflow: hidden;
     margin: -50px;
-    transform: scaleX(-1);
 }
 
 .logincontainer {
-    background: url('../img/backgrounds/21.png');
+    background: url('../img/backgrounds/4.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
 }
 
+.deathcontainer {
+    background: url('../img/backgrounds/5.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.deathcontainer button {
+    margin-top: 20px;
+}
+
 #playerimage {
+    position: absolute;
+    left: 20%;
+    margin-top: 5vw;
+}
+
+#playerimageoverlay {
     position: absolute;
     left: 20%;
     margin-top: 5vw;
@@ -132,6 +145,12 @@ p, a, td, button, form, input {
     position: absolute;
     right: 20%;
     margin-top: 6vw;
+}
+
+#enemyimageoverlay {
+    position: absolute;
+    right: 20%;
+    margin-top: 3vw;
 }
 
 
@@ -150,6 +169,7 @@ p, a, td, button, form, input {
 }
 
 .hud {
+    float: left;
     width: 75px;
     border-style: solid;
     border-width: 3px;
@@ -160,12 +180,16 @@ p, a, td, button, form, input {
 }
 
 .hudtext {
-    display: inline;
+    float: left;
+    margin: 0;
     padding-left: 15px;
+    margin-top: 32px;
 }
 
 .arrow {
+    float: left;
     padding-right: 15px;
     width: 30px;
-    margin-top: 15px;
+    padding-top: 32px;
+    padding-bottom: 25px;
 }   
