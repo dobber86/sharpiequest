@@ -2,6 +2,8 @@ app.service('soundHandler', function($timeout) {
     var musicVolume = 0.1;
     var soundVolume = 0.3;
     var toggle = false;
+    var musicOn = true;
+    var soundOn = true;
     
     var sounds = [ 
         {file: "img/sound/31.ogg", timeout: 0}, // menu
@@ -26,6 +28,9 @@ app.service('soundHandler', function($timeout) {
         }
         if (x === 3) {
             return "img/music/final-countdown.mp3";
+        }
+        if (x === "shop") {
+            return "img/music/shop.ogg";
         }
     }
 
@@ -145,4 +150,21 @@ app.service('soundHandler', function($timeout) {
         }
         toggle = false;
     }
+
+    this.saveMusicOn = function(mOn) {
+        musicOn = mOn
+    }
+
+    this.getMusicOn = function() {
+        return musicOn;
+    }
+
+    this.saveSoundOn = function(sOn) {
+        soundOn = sOn
+    }
+
+    this.getSoundOn = function() {
+        return soundOn;
+    }
+
 });

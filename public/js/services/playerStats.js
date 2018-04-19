@@ -75,6 +75,20 @@ app.service('playerStats', function() {
         player.money = lMoney
     }
 
+    this.saveShopUpdate = function(sHp, sMHp, sMp, sMMp, sPwr, sRes, sAcc, sIns, sSP, sXp, sMoney) {
+        player.hp = sHp,
+        player.maxhp = sMHp,
+        player.mp = sMp,
+        player.maxmp = sMMp,
+        player.power = sPwr,
+        player.resistance = sRes,
+        player.accuracy = sAcc,
+        player.insight = sIns,
+        player.specialpower = sSP,
+        player.xp = sXp,
+        player.money = sMoney
+    }
+
     this.getUsername = function() {
         return player.username;
     }
