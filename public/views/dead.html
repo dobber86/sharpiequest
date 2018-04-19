@@ -1,33 +1,30 @@
-<br>
-
 <div class="row">
-  <div class="col-sm-12">
-    <!-- <p>You Died {{playerName}}!</p> -->
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-2">
-    <br><button style="width: 100px" ng-click="playerReset()">Reset</button>
-  </div>
-  <div class="col-sm-2">
-    <br><button style="width: 100px" ng-click="playerDelete()">Delete</button>
-  </div>
-</div>
-
-<br>
-
-<div class="row combatlog">
-  <div class="col-sm-2">
-    <img class="img-fluid centeredimg" src="img/char/warrior/faceset.png">
-  </div>
-  <div class="col-sm-7">
-    <p>Guess I'll die</p>
-  </div>
-  <div class="col-sm-3">
+  <div class="col-sm-12 centered">
+    <p>The hero did not manage to complete their journey.</p>
+    <p>The phrophecy of Sharpie remains unfulfilled.</p>
+    <p>At this point, you know it better than he does:</p>
     <br>
-    <div>
-      <button class="btn btn-light disabled" style="width: 100px" ng-click="toShop();">Shop</button>
+    <p>"That is the game, and that is how the game is played."</p>
+  </div>
+</div>
+
+<div class="row deathcontainer">
+    <div class="col-sm-3">
+      <img class="img-fluid centeredimg" src="img/monster/ghost/idle.gif">
     </div>
+    <div class="col-sm-6 centered">
+        <button class="btn btn-light btn-lg" ng-click="playerReset()">Reset</button>
+        <p>Start all over again</p>
+        <button class="btn btn-light btn-lg" ng-click="playerDelete()">Delete</button>
+        <p>Quit forever</p>
+    </div>
+    <div class="col-sm-3">
+      <img class="img-fluid centeredimg flip" src="img/monster/ghost/idle.gif">
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 centered">
+      <a style="color: #3d3d3d">???</a>
   </div>
 </div>

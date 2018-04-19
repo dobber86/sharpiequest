@@ -1,6 +1,7 @@
 <div class="row healthbars">
   <div class="col-sm-4 centered">
-    <p>You are on Level {{playerLevel}} (Wastelands)</p><br>
+    <p>Level {{playerLevel}}:</p>
+    <p>{{levelName}}</p><br>
     <p>Turn: {{turnCount}}</p>
   </div>
   <div class="col-sm-4">
@@ -17,7 +18,9 @@
     <div class="progress statbar">
         <div class="progress-bar bg-danger" ng-style="enemyBar"><p>{{enemyCurrentHP}}</p></div>
     </div>
-    <p class="centered">"Blargh!"</p>
+    <div class="progress">
+        <div class="progress-bar bg-dark" style="width: 100%"><p>"{{miniQuote}}"</p></div>
+    </div>
   </div>
 </div>
 
@@ -37,22 +40,22 @@
         </tbody>
       </table>
 
-      <img class="img-fluid arrow" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="arrow1State" src="img/hud/arrow-right.png">
-      <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="buttonState" ng-click="playerAttack()" src="img/hud/attack.png">
+      <img class="arrow" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="arrow1State" src="img/hud/arrow-right.png">
+      <img class="hud pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="buttonState" ng-click="playerAttack()" src="img/hud/attack.png">
       <p class="hudtext pointer" ng-mouseover="arrowStateOn(1)" ng-mouseleave="arrowStateOff(1)" ng-style="buttonState" ng-click="playerAttack()">Attack</p><br>
-
-      <img class="img-fluid arrow" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="arrow2State" src="img/hud/arrow-right.png">
-      <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="buttonState" ng-click="playerDefend()" src="img/hud/defend.png">
+      <br><br><br>
+      <img class="arrow" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="arrow2State" src="img/hud/arrow-right.png">
+      <img class="hud pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="buttonState" ng-click="playerDefend()" src="img/hud/defend.png">
       <p class="hudtext pointer" ng-mouseover="arrowStateOn(2)" ng-mouseleave="arrowStateOff(2)" ng-style="buttonState" ng-click="playerDefend()">Defend</p><br>
-
-      <img class="img-fluid arrow" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="arrow3State" src="img/hud/arrow-right.png">
-      <img class="img-fluid hud pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="buttonState" ng-click="playerSpecial()"src="img/hud/special.png">
+      <br><br><br>
+      <img class="arrow" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="arrow3State" src="img/hud/arrow-right.png">
+      <img class="hud pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="buttonState" ng-click="playerSpecial()"src="img/hud/special.png">
       <p class="hudtext pointer" ng-mouseover="arrowStateOn(3)" ng-mouseleave="arrowStateOff(3)" ng-style="buttonState" ng-click="playerSpecial()">Devastate (3mp)</p>
     </div>
-  <div class="col-sm-8 spritecontainer">
+  <div class="col-sm-8 spritecontainer" ng-style="backgroundState">
     <img class="float-left flip" id="playerimage" src={{playerImage}}>
     <img class="float-right" id="playerimageoverlay" ng-style="enemySpecialState" src={{playerImageOverlay}}>
-    <img class="float-right flip" id="enemyimage" src={{enemyImage}}>
+    <img class="float-right flip" id="enemyimage" ng-style="bossStyle" src={{enemyImage}}>
     <img class="float-right" id="enemyimageoverlay" ng-style="playerSpecialState" src={{enemyImageOverlay}}>
 </div>
 </div>
@@ -65,13 +68,13 @@
     <p>{{combatLog}}</p>
     <p>"{{characterQuote}}"</p>
   </div>
-  <div class="col-sm-3">
+  <div class="col-sm-3 centered">
     <br>
     <div class="btn-group">
       <button type="button" class="btn btn-light" id="musicbutton" ng-click="pauseMusic()"></span>Music</button>
       <button type="button" class="btn btn-light" id="soundbutton" ng-click="pauseSound()"></span>Sound</button>
       </div>
-    <button ng-controller="updateController" class="btn btn-light disabled" style="width: 100px" ng-click="playerUpdate()">Next</button>
+    <button ng-controller="updateController" class="btn btn-light disabled" id="nextbutton" style="width: 100px" ng-click="playerUpdate()">Next</button>
   </div>
 </div>
 
