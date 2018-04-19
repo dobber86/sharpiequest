@@ -12,14 +12,15 @@
         <div class="progress-bar" ng-style="playerManaBar"><p>{{playerCurrentMP}}</p></div>
     </div>
   </div>
-  <div class="col-sm-2">
-    <p>Gold:</p>
-    <p>{{playerMoney}}</p>
-  </div>
-  <div class="col-sm-2">
-      <p>Xp:</p>
-      <p>{{playerXp}}</p>
+  <div class="col-sm-4">
+    <p>Your stuff:</p>
+    <div class="progress statbar">
+        <div class="progress-bar bg-warning" style="width: 100%"><p>{{playerMoney}}gp</p></div>
     </div>
+    <div class="progress">
+        <div class="progress-bar bg-info" style="width: 100%"><p>{{playerXp}}xp</p></div>
+    </div>
+  </div>
 </div>
 
 <div class="row">
@@ -97,7 +98,8 @@
     <img class="img-fluid centeredimg" src="img/char/warrior/faceset.png">
   </div>
   <div class="col-sm-7">
-    <p>This place is a scam!</p>
+    <p>See anything that interests you?</p>
+    <p>"This place is a scam!"</p>
   </div>
   <div class="col-sm-3">
     <br>
