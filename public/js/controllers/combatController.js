@@ -203,6 +203,11 @@ app.controller('combatController', function($scope, $location, $timeout, monster
 
   var nextButton = document.getElementById("nextbutton");
 
+  // Toggle visibility Next Button
+  $scope.visibilityNext = function() {
+    nextButton.classList.toggle("invisible");
+  }
+
   // Background css needs to be handled in Angular
   $scope.backgroundState = {
     "background": "url('../img/backgrounds/"+$scope.backgroundNumber+".png')",
@@ -645,7 +650,6 @@ app.controller('combatController', function($scope, $location, $timeout, monster
     // If someone is dead, update view (after a short delay)
     $timeout(function() {
       if ($scope.enemyAlive === false) {
-        nextButton.classList.toggle("disabled");
         $scope.buttonLock = true;
         $scope.combatLog = "The "+$scope.enemyName+" is dead!";
         $scope.characterQuote = "Victory!";
@@ -681,9 +685,11 @@ app.controller('combatController', function($scope, $location, $timeout, monster
         $scope.sound = soundHandler.getSound("victory");
         soundHandler.playSound("victory");
         $scope.playerVictory();
+        $timeout(function() {
+          $scope.visibilityNext();
+        }, 2200);
       }
       if ($scope.playerAlive === false) {
-        nextButton.classList.toggle("disabled");
         $scope.buttonLock = true; 
         $scope.combatLog = "You are dead, oh dear!";
         $scope.characterQuote = "Urgh...";
@@ -711,6 +717,10 @@ app.controller('combatController', function($scope, $location, $timeout, monster
         $scope.sound = soundHandler.getSound("death");
         soundHandler.playSound("death");
         $scope.playerDead();
+
+        $timeout(function() {
+          $scope.visibilityNext();
+        }, 2200);
       }
     }, 2000);
 
@@ -739,7 +749,6 @@ app.controller('combatController', function($scope, $location, $timeout, monster
   }
   
   $scope.playerVictory = function() {
-    
     playerStats.saveCombatUpdate(
       $scope.playerCurrentHP,
       $scope.playerCurrentMP,
