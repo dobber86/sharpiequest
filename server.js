@@ -1,10 +1,17 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mysql = require('mysql');
+var bcrypt = require('bcrypt');
+
+//Express setup
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//Bcrypt setup
+const saltRounds = 10;
+
+//mySQL setup
 function getConnection() {
     var connection = mysql.createConnection({
       host: 'localhost',
@@ -15,6 +22,7 @@ function getConnection() {
     return connection;
 };
 
+//HOST
 app.listen(3001, function () {
     console.log('Sharpiequest app is started on localhost:3001');
 });
@@ -26,35 +34,42 @@ app.post('/signin', function (req, res) {
     console.log("in sign in");
     var connection = getConnection();
     connection.connect();
-    
-    var newSignIn = {
-        id: 0, 
-        username: req.body.username, 
-        password: req.body.password,
-        hp: req.body.hp,
-        maxhp: req.body.maxhp,
-        mp: req.body.mp,
-        maxmp: req.body.maxmp,
-        power: req.body.power,
-        resistance: req.body.resistance,
-        accuracy: req.body.accuracy,
-        insight: req.body.insight,
-        specialpower: req.body.specialpower,
-        xp: req.body.xp,
-        level: req.body.level,
-        money: req.body.money
-    };
 
-    var sql = 'INSERT INTO players SET ?';
+    var password = req.body.password;
+    console.log("password is: " + password);
+    
+    bcrypt.hash(password, saltRounds, function(err, hash) {
+        
+        var newSignIn = {
+            id: 0, 
+            username: req.body.username, 
+            password: hash,
+            hp: req.body.hp,
+            maxhp: req.body.maxhp,
+            mp: req.body.mp,
+            maxmp: req.body.maxmp,
+            power: req.body.power,
+            resistance: req.body.resistance,
+            accuracy: req.body.accuracy,
+            insight: req.body.insight,
+            specialpower: req.body.specialpower,
+            xp: req.body.xp,
+            level: req.body.level,
+            money: req.body.money
+        };
+
+        var sql = 'INSERT INTO players SET ?';
   
-    var query = connection.query(sql, newSignIn, function (err, result) {
-      if(err) {
-          console.log("foutje in sigin in" + err);
-      }
-        console.log("added " +  newSignIn);
-      res.status(200).end();
+        var query = connection.query(sql, newSignIn, function (err, result) {
+        if(err) {
+            console.log("foutje in signin in" + err);
+        }
+            console.log("added " +  newSignIn.username);
+        res.status(200).end();
+        });
+
+        connection.end();
     });
-    connection.end();
 });
 
 // CHECKING USERNAME AVAILABILITY IN DATABASE DURING SIGN IN
@@ -91,15 +106,31 @@ app.post('/fetch', function(req, res) {
 
     var username = req.body.username;
     var password = req.body.password;
-    var sql = 'SELECT * FROM players WHERE username = ? AND password = ?';
+    // var sql = 'SELECT * FROM players WHERE username = ? AND password = ?';
+    var sql = 'SELECT * FROM players WHERE username = ?';
 
-    connection.query(sql, [username, password], function (err, rows, fields) {
+    connection.query(sql, username, function (err, rows, fields) {
         
         if(!err) {
-            console.log("Logged In: " + username + ". Pw: " + password + ". " + rows);
+            console.log("Fetching: " + username + ".");
             if (rows.length == "1") {
-                res.send(JSON.stringify(rows));
-                res.status(200).end();
+                var dbPassword = rows[0].password;
+
+                bcrypt.compare(password, dbPassword, function(err, resp) {
+                    console.log(resp);
+                    if(!err) {
+                        if(resp) {
+                            res.send(JSON.stringify(rows));
+                            res.status(200).end();
+                        } else {
+                            res.status(401).end();
+                        }
+                    } else {
+                        res.status(400).end();
+                        console.log("bcrypt error: " + err);
+                    }
+                });
+                
             } else if (rows.length == "0") {
                 res.status(401).end();
             } else {
