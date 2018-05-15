@@ -5,10 +5,10 @@ This project is made within 2 weeks as part of a Front End Developer Traineeship
 
 This project is programmed in the following tools, languages and frameworks:
 
-HTML5
-CSS3 with Bootstrap
-JavaScript
-MySql
-Express
-AngularJS
-Node.js
+- HTML5
+- CSS3 with Bootstrap
+- JavaScript
+- MySql
+- Express
+- AngularJS
+- Node.js
